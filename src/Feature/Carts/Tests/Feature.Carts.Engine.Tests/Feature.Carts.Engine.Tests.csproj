@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine\Feature.Promotions.Engine.csproj" />
+    <ProjectReference Include="..\..\Engine\Feature.Carts.Engine.csproj" />
   </ItemGroup>
 
 </Project>

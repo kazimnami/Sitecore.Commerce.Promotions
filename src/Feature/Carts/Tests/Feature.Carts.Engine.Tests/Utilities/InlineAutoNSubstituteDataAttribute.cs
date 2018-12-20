@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Xunit.Extensions;
 
-namespace Feature.Promotions.Engine.Tests
+namespace Feature.Carts.Engine.Tests
 {
     internal class InlineAutoNSubstituteDataAttribute : CompositeDataAttribute
     {

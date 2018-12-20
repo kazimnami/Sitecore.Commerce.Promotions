@@ -6,39 +6,42 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Feature.Promotions.Engine
+namespace Feature.Carts.Engine
 {
-    [EntityIdentifier("CartItemTargetTagSubtotalAmountOffAction")]
-    public class CartItemTargetTagSubtotalAmountOffAction : CartTargetTag, ICartLineAction, ICartsAction, IAction, IMappableRuleEntity
+    [EntityIdentifier("CartItemTargetTagSubtotalPercentOffAction")]
+    public class CartItemTargetTagSubtotalPercentOffAction : CartTargetTag, ICartLineAction, ICartsAction, IAction, IMappableRuleEntity
     {
-        public IRuleValue<decimal> AmountOff { get; set; }
+        public IRuleValue<decimal> Subtotal { get; set; }
+
+        public IBinaryOperator<decimal, decimal> Operator { get; set; }
+
+        public IRuleValue<decimal> PercentOff { get; set; }
 
         public void Execute(IRuleExecutionContext context)
         {
-            var commerceContext = context.Fact<CommerceContext>();
+            var commerceContext = context.Fact<CommerceContext>(null);
             var cart = commerceContext?.GetObject<Cart>();
 
             var totals = commerceContext?.GetObject<CartTotals>();
-            if (cart == null || !cart.Lines.Any() || totals == null || !totals.Lines.Any())
+            if (cart == null || !cart.Lines.Any() || Operator == null || totals == null || !totals.Lines.Any())
                 return;
 
-            var list = this.MatchingLines(context).ToList();
+            var list = this.MatchingLines(context).Where(l =>
+                Operator.Evaluate(l.Totals.SubTotal.Amount, Subtotal.Yield(context))
+                && l.Quantity != decimal.Zero).ToList();
             if (!list.Any())
                 return;
 
-            var className = nameof(CartItemTargetTagSubtotalAmountOffAction);
+            var className = nameof(CartItemTargetTagSubtotalPercentOffAction);
             var propertiesModel = commerceContext.GetObject<PropertiesModel>();
             var discountAdjustmentType = commerceContext.GetPolicy<KnownCartAdjustmentTypesPolicy>().Discount;
 
-            var discountAmount = this.AmountOff.Yield(context);
-            if (commerceContext.GetPolicy<GlobalPricingPolicy>().ShouldRoundPriceCalc)
-                discountAmount = decimal.Round(discountAmount, commerceContext.GetPolicy<GlobalPricingPolicy>().RoundDigits, commerceContext.GetPolicy<GlobalPricingPolicy>().MidPointRoundUp ? MidpointRounding.AwayFromZero : MidpointRounding.ToEven);
-            discountAmount *= decimal.MinusOne;
-
             foreach (var line in list)
             {
-                if (!totals.Lines.ContainsKey(line.Id))
-                    return;
+                var discountAmount = PercentOff.Yield(context) * 0.01M * totals.Lines[line.Id].SubTotal.Amount;
+                if (commerceContext.GetPolicy<GlobalPricingPolicy>().ShouldRoundPriceCalc)
+                    discountAmount = decimal.Round(discountAmount, commerceContext.GetPolicy<GlobalPricingPolicy>().RoundDigits, commerceContext.GetPolicy<GlobalPricingPolicy>().MidPointRoundUp ? MidpointRounding.AwayFromZero : MidpointRounding.ToEven);
+                discountAmount *= decimal.MinusOne;
 
                 line.Adjustments.Add(new CartLineLevelAwardedAdjustment()
                 {

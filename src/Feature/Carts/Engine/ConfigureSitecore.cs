@@ -10,7 +10,7 @@ using Sitecore.Framework.Rules.Registry;
 using System;
 using System.Reflection;
 
-namespace Feature.Promotions.Engine
+namespace Feature.Carts.Engine
 {
     public class ConfigureSitecore : IConfigureSitecore
     {

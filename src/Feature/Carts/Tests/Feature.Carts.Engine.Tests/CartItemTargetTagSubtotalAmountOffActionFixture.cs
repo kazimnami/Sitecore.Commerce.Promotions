@@ -8,7 +8,7 @@ using Sitecore.Commerce.Core;
 using Sitecore.Commerce.Plugin.Carts;
 using FluentAssertions;
 
-namespace Feature.Promotions.Engine.Tests
+namespace Feature.Carts.Engine.Tests
 {
     public class CartItemTargetTagSubtotalAmountOffActionFixture
     {

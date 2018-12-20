@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Feature.Promotions.Engine
+namespace Feature.Carts.Engine
 {
     public abstract class CartTargetTag
     {
