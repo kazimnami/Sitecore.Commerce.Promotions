@@ -6,8 +6,8 @@ using System.Linq;
 
 namespace Feature.Carts.Engine.Conditions
 {
-    [EntityIdentifier("CartAnyItemHasTagCondition")]
-    public class CartAnyItemHasTagCondition : ICartsCondition, ICondition, IMappableRuleEntity
+    [EntityIdentifier(nameof(CartAnyItemHasBrandCondition))]
+    public class CartAnyItemHasBrandCondition : ICartsCondition, ICondition, IMappableRuleEntity
     {
         public IRuleValue<string> Brand { get; set; }
 
@@ -18,8 +18,8 @@ namespace Feature.Carts.Engine.Conditions
             var cart = context.Fact<CommerceContext>()?.GetObject<Cart>();
             if (cart == null || !cart.Lines.Any() || string.IsNullOrEmpty(brand))
                 return false;
-            return cart.Lines.Any<CartLineComponent>(l => 
-                l.GetComponent<CartProductComponent>().Tags.Any<Sitecore.Commerce.Core.Tag>(t => t.Name.Equals(tag, StringComparison.OrdinalIgnoreCase)));
+            return cart.Lines.Any(l => 
+                l.GetComponent<LineItemProductExtendedComponent>().Brand.Equals(brand, StringComparison.OrdinalIgnoreCase));
         }
     }
 

@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Sitecore.Commerce.Core" Version="2.2.29" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Carts" Version="2.2.11" />
+    <PackageReference Include="Sitecore.Commerce.Plugin.Catalog" Version="2.2.46" />
     <PackageReference Include="System.Threading" Version="4.3.0" />
   </ItemGroup>
 

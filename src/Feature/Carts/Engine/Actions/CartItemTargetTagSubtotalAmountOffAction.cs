@@ -8,51 +8,19 @@ using System.Linq;
 
 namespace Feature.Carts.Engine
 {
-    [EntityIdentifier("CartItemTargetTagSubtotalAmountOffAction")]
-    public class CartItemTargetTagSubtotalAmountOffAction : CartTargetTag, ICartLineAction, ICartsAction, IAction, IMappableRuleEntity
+    [EntityIdentifier(nameof(CartItemTargetTagSubtotalAmountOffAction))]
+    public class CartItemTargetTagSubtotalAmountOffAction : BaseCartItemSubtotalAmountOffAction
     {
-        public IRuleValue<decimal> AmountOff { get; set; }
+        public IRuleValue<string> TargetTag { get; set; }
 
-        public void Execute(IRuleExecutionContext context)
+        protected override string NameOfBlock()
         {
-            var commerceContext = context.Fact<CommerceContext>();
-            var cart = commerceContext?.GetObject<Cart>();
+            return nameof(CartItemTargetTagSubtotalAmountOffAction);
+        }
 
-            var totals = commerceContext?.GetObject<CartTotals>();
-            if (cart == null || !cart.Lines.Any() || totals == null || !totals.Lines.Any())
-                return;
-
-            var list = this.MatchingLines(context).ToList();
-            if (!list.Any())
-                return;
-
-            var className = nameof(CartItemTargetTagSubtotalAmountOffAction);
-            var propertiesModel = commerceContext.GetObject<PropertiesModel>();
-            var discountAdjustmentType = commerceContext.GetPolicy<KnownCartAdjustmentTypesPolicy>().Discount;
-
-            var discountAmount = this.AmountOff.Yield(context);
-            if (commerceContext.GetPolicy<GlobalPricingPolicy>().ShouldRoundPriceCalc)
-                discountAmount = decimal.Round(discountAmount, commerceContext.GetPolicy<GlobalPricingPolicy>().RoundDigits, commerceContext.GetPolicy<GlobalPricingPolicy>().MidPointRoundUp ? MidpointRounding.AwayFromZero : MidpointRounding.ToEven);
-            discountAmount *= decimal.MinusOne;
-
-            foreach (var line in list)
-            {
-                if (!totals.Lines.ContainsKey(line.Id))
-                    return;
-
-                line.Adjustments.Add(new CartLineLevelAwardedAdjustment()
-                {
-                    Name = (propertiesModel?.GetPropertyValue("PromotionText") as string ?? discountAdjustmentType),
-                    DisplayName = (propertiesModel?.GetPropertyValue("PromotionCartText") as string ?? discountAdjustmentType),
-                    Adjustment = new Money(commerceContext.CurrentCurrency(), discountAmount),
-                    AdjustmentType = discountAdjustmentType,
-                    IsTaxable = false,
-                    AwardingBlock = className
-                });
-
-                totals.Lines[line.Id].SubTotal.Amount = totals.Lines[line.Id].SubTotal.Amount + discountAmount;
-                line.GetComponent<MessagesComponent>().AddMessage(commerceContext.GetPolicy<KnownMessageCodePolicy>().Promotions, string.Format("PromotionApplied: {0}", propertiesModel?.GetPropertyValue("PromotionId") ?? className));
-            };
+        protected override IEnumerable<CartLineComponent> MatchingLines(IRuleExecutionContext context)
+        {
+            return TargetTag.YieldCartLinesWithTag(context);
         }
     }
 }
