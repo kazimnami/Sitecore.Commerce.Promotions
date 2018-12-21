@@ -13,13 +13,7 @@ namespace Feature.Carts.Engine.Conditions
 
         public bool Evaluate(IRuleExecutionContext context)
         {
-            var brand = Brand.Yield(context);
-
-            var cart = context.Fact<CommerceContext>()?.GetObject<Cart>();
-            if (cart == null || !cart.Lines.Any() || string.IsNullOrEmpty(brand))
-                return false;
-            return cart.Lines.Any(l => 
-                l.GetComponent<LineItemProductExtendedComponent>().Brand.Equals(brand, StringComparison.OrdinalIgnoreCase));
+            return Brand.YieldCartLinesWithBrand(context).Any();
         }
     }
 

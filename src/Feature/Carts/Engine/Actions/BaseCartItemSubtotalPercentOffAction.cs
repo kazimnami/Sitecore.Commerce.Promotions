@@ -10,9 +10,9 @@ namespace Feature.Carts.Engine
 {
     public abstract class BaseCartItemSubtotalPercentOffAction : ICartLineAction, ICartsAction, IAction, IMappableRuleEntity
     {
-        public IRuleValue<decimal> Subtotal { get; set; }
+        public IBinaryOperator<decimal, decimal> SubtotalOperator { get; set; }
 
-        public IBinaryOperator<decimal, decimal> Operator { get; set; }
+        public IRuleValue<decimal> Subtotal { get; set; }
 
         public IRuleValue<decimal> PercentOff { get; set; }
 
@@ -26,11 +26,11 @@ namespace Feature.Carts.Engine
             var cart = commerceContext?.GetObject<Cart>();
 
             var totals = commerceContext?.GetObject<CartTotals>();
-            if (cart == null || !cart.Lines.Any() || Operator == null || totals == null || !totals.Lines.Any())
+            if (cart == null || !cart.Lines.Any() || SubtotalOperator == null || totals == null || !totals.Lines.Any())
                 return;
 
             var list = this.MatchingLines(context).Where(l =>
-                Operator.Evaluate(l.Totals.SubTotal.Amount, Subtotal.Yield(context))
+                SubtotalOperator.Evaluate(l.Totals.SubTotal.Amount, Subtotal.Yield(context))
                 && l.Quantity != decimal.Zero).ToList();
             if (!list.Any())
                 return;

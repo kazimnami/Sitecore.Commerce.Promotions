@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Sitecore.Commerce.Core;
+using Sitecore.Commerce.EntityViews;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Commerce.Plugin.Catalog;
 using Sitecore.Framework.Configuration;
@@ -21,6 +22,10 @@ namespace Feature.Carts.Engine
                 .ConfigurePipeline<IPopulateLineItemPipeline>(pipeline =>
                 {
                     pipeline.Add<PopulateLineItemProductExtendedBlock>().After<PopulateLineItemProductBlock>();
+                }, order: 2000)
+                .ConfigurePipeline<IDoActionPipeline>(pipeline =>
+                {
+                    pipeline.Add<Feature.Carts.Engine.DoActionSelectBenefitBlock>().After<Sitecore.Commerce.Plugin.Catalog.DoActionSelectBenefitBlock>();
                 }, order: 2000)
             );
         }
