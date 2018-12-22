@@ -27,6 +27,10 @@ namespace Feature.Carts.Engine
             if (cart == null || !cart.Lines.Any() || totals == null || !totals.Lines.Any() || SubtotalOperator == null || Subtotal == null || AmountOff == null)
                 return;
 
+            var amountOff = AmountOff.Yield(context);
+            if (amountOff == 0)
+                return;
+
             var matches = this.MatchingLines(context);
             if (matches == null || !matches.Any())
                 return;
@@ -41,7 +45,7 @@ namespace Feature.Carts.Engine
             var propertiesModel = commerceContext.GetObject<PropertiesModel>();
             var discountAdjustmentType = commerceContext.GetPolicy<KnownCartAdjustmentTypesPolicy>().Discount;
 
-            var discountAmount = this.AmountOff.Yield(context);
+            var discountAmount = amountOff;
             if (commerceContext.GetPolicy<GlobalPricingPolicy>().ShouldRoundPriceCalc)
                 discountAmount = decimal.Round(discountAmount, commerceContext.GetPolicy<GlobalPricingPolicy>().RoundDigits, commerceContext.GetPolicy<GlobalPricingPolicy>().MidPointRoundUp ? MidpointRounding.AwayFromZero : MidpointRounding.ToEven);
             discountAmount *= decimal.MinusOne;

@@ -24,7 +24,11 @@ namespace Feature.Carts.Engine
             var cart = commerceContext?.GetObject<Cart>();
 
             var totals = commerceContext?.GetObject<CartTotals>();
-            if (cart == null || !cart.Lines.Any() || SubtotalOperator == null || totals == null || !totals.Lines.Any())
+            if (cart == null || !cart.Lines.Any() || totals == null || !totals.Lines.Any() || SubtotalOperator == null || Subtotal == null || PercentOff == null)
+                return;
+
+            var percentOff = PercentOff.Yield(context);
+            if (percentOff == 0)
                 return;
 
             var matches = this.MatchingLines(context);
@@ -43,7 +47,7 @@ namespace Feature.Carts.Engine
 
             foreach (var line in list)
             {
-                var discountAmount = PercentOff.Yield(context) * 0.01M * totals.Lines[line.Id].SubTotal.Amount;
+                var discountAmount = percentOff * 0.01M * totals.Lines[line.Id].SubTotal.Amount;
                 if (commerceContext.GetPolicy<GlobalPricingPolicy>().ShouldRoundPriceCalc)
                     discountAmount = decimal.Round(discountAmount, commerceContext.GetPolicy<GlobalPricingPolicy>().RoundDigits, commerceContext.GetPolicy<GlobalPricingPolicy>().MidPointRoundUp ? MidpointRounding.AwayFromZero : MidpointRounding.ToEven);
                 discountAmount *= decimal.MinusOne;
