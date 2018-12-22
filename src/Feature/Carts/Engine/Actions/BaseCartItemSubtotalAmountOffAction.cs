@@ -16,9 +16,7 @@ namespace Feature.Carts.Engine
 
         public IRuleValue<decimal> AmountOff { get; set; }
 
-        protected abstract IEnumerable<CartLineComponent> MatchingLines(IRuleExecutionContext context);
-
-        protected abstract string NameOfBlock();
+        public abstract IEnumerable<CartLineComponent> MatchingLines(IRuleExecutionContext context);
 
         public void Execute(IRuleExecutionContext context)
         {
@@ -26,16 +24,20 @@ namespace Feature.Carts.Engine
             var cart = commerceContext?.GetObject<Cart>();
 
             var totals = commerceContext?.GetObject<CartTotals>();
-            if (cart == null || !cart.Lines.Any() || SubtotalOperator == null || totals == null || !totals.Lines.Any())
+            if (cart == null || !cart.Lines.Any() || totals == null || !totals.Lines.Any() || SubtotalOperator == null || Subtotal == null || AmountOff == null)
                 return;
 
-            var list = this.MatchingLines(context).Where(l =>
+            var matches = this.MatchingLines(context);
+            if (matches == null || !matches.Any())
+                return;
+
+            var list = matches.Where(l =>
                 SubtotalOperator.Evaluate(l.Totals.SubTotal.Amount, Subtotal.Yield(context))
                 && l.Quantity != decimal.Zero).ToList();
             if (!list.Any())
                 return;
 
-            var className = this.NameOfBlock();
+            var className = this.GetType().Name;
             var propertiesModel = commerceContext.GetObject<PropertiesModel>();
             var discountAdjustmentType = commerceContext.GetPolicy<KnownCartAdjustmentTypesPolicy>().Discount;
 

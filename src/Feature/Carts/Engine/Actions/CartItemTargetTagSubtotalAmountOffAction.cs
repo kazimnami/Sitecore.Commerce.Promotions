@@ -8,17 +8,12 @@ using System.Linq;
 
 namespace Feature.Carts.Engine
 {
-    [EntityIdentifier(nameof(CartItemTargetTagSubtotalAmountOffAction))]
+    [EntityIdentifier(Constants.CartItemTargetTagSubtotalAmountOffAction)]
     public class CartItemTargetTagSubtotalAmountOffAction : BaseCartItemSubtotalAmountOffAction
     {
         public IRuleValue<string> TargetTag { get; set; }
 
-        protected override string NameOfBlock()
-        {
-            return nameof(CartItemTargetTagSubtotalAmountOffAction);
-        }
-
-        protected override IEnumerable<CartLineComponent> MatchingLines(IRuleExecutionContext context)
+        public override IEnumerable<CartLineComponent> MatchingLines(IRuleExecutionContext context)
         {
             return TargetTag.YieldCartLinesWithTag(context);
         }

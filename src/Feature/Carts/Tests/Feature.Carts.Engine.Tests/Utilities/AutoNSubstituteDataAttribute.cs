@@ -1,16 +1,16 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoNSubstitute;
-using AutoFixture.Xunit;
+using AutoFixture.Xunit2;
 using System.Diagnostics.CodeAnalysis;
 using Xunit.Sdk;
 
 namespace Feature.Carts.Engine.Tests
 {
-    internal class AutoNSubstituteDataAttribute : AutoDataAttribute
+    public class AutoNSubstituteDataAttribute : AutoDataAttribute
     {
         [ExcludeFromCodeCoverage]
-        internal AutoNSubstituteDataAttribute()
-            : base(() => new Fixture().Customize(new AutoNSubstituteCustomization()))
+        public AutoNSubstituteDataAttribute()
+            : base(() => BaseFixture.Create().Customize(new AutoNSubstituteCustomization()))
         {
         }
     }

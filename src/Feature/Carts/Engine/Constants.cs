@@ -10,5 +10,12 @@
                 public const string DoActionSelectBenefitBlock = "Feature.Carts:Block:" + nameof(DoActionSelectBenefitBlock);
             }
         }
+
+        public const string CartItemTargetCategorySubtotalPercentOffAction = nameof(CartItemTargetCategorySubtotalPercentOffAction);
+        public const string CartItemTargetCategorySubtotalAmountOffAction = nameof(CartItemTargetCategorySubtotalAmountOffAction);
+        public const string CartItemTargetBrandSubtotalPercentOffAction = nameof(CartItemTargetBrandSubtotalPercentOffAction);
+        public const string CartItemTargetBrandSubtotalAmountOffAction = nameof(CartItemTargetBrandSubtotalAmountOffAction);
+        public const string CartItemTargetTagSubtotalPercentOffAction = nameof(CartItemTargetTagSubtotalPercentOffAction);
+        public const string CartItemTargetTagSubtotalAmountOffAction = nameof(CartItemTargetTagSubtotalAmountOffAction);
     }
 }

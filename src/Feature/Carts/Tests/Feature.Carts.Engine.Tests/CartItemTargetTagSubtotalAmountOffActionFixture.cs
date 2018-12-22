@@ -1,12 +1,12 @@
 using AutoFixture;
+using FluentAssertions;
 using NSubstitute;
-using AutoFixture.AutoNSubstitute;
-using System;
-using Xunit;
-using Sitecore.Framework.Rules;
 using Sitecore.Commerce.Core;
 using Sitecore.Commerce.Plugin.Carts;
-using FluentAssertions;
+using Sitecore.Framework.Rules;
+using System;
+using System.Linq;
+using Xunit;
 
 namespace Feature.Carts.Engine.Tests
 {
@@ -15,10 +15,11 @@ namespace Feature.Carts.Engine.Tests
         public static Action<IFixture> AutoSetup() => f =>
         {
             f.Freeze<IRuleExecutionContext>();
+            f.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => f.Behaviors.Remove(b));
+            f.Behaviors.Add(new OmitOnRecursionBehavior());
         };
 
-        [Theory]
-        [AutoNSubstituteData]
+        [Theory, AutoNSubstituteData]
         public void Evaluate_False_NullContext(
             CommerceContext commerceContext,
             Cart cart,

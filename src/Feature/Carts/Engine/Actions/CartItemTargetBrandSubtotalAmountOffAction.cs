@@ -7,17 +7,12 @@ using System.Linq;
 
 namespace Feature.Carts.Engine
 {
-    [EntityIdentifier(nameof(CartItemTargetBrandSubtotalAmountOffAction))]
+    [EntityIdentifier(Constants.CartItemTargetBrandSubtotalAmountOffAction)]
     public class CartItemTargetBrandSubtotalAmountOffAction : BaseCartItemSubtotalAmountOffAction
     {
         public IRuleValue<string> TargetBrand { get; set; }
 
-        protected override string NameOfBlock()
-        {
-            return nameof(CartItemTargetBrandSubtotalAmountOffAction);
-        }
-
-        protected override IEnumerable<CartLineComponent> MatchingLines(IRuleExecutionContext context)
+        public override IEnumerable<CartLineComponent> MatchingLines(IRuleExecutionContext context)
         {
             return TargetBrand.YieldCartLinesWithBrand(context);
         }

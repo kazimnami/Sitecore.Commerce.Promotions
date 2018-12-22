@@ -9,11 +9,11 @@ namespace Feature.Carts.Engine.Conditions
     [EntityIdentifier(nameof(CartAnyItemHasCategoryCondition))]
     public class CartAnyItemHasCategoryCondition : ICartsCondition, ICondition, IMappableRuleEntity
     {
-        public IRuleValue<string> CategoryItemId { get; set; }
+        public IRuleValue<string> CategorySitecoreId { get; set; }
 
         public bool Evaluate(IRuleExecutionContext context)
         {
-            return CategoryItemId.YieldCartLinesWithCategory(context).Any();
+            return CategorySitecoreId.YieldCartLinesWithCategory(context).Any();
         }
     }
 
