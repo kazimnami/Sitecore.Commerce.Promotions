@@ -11,7 +11,7 @@ namespace Feature.Carts.Engine
     {
         public static IEnumerable<CartLineComponent> YieldCartLinesWithTag(this IRuleValue<string> ruleValue, IRuleExecutionContext context)
         {
-            string targetTag = ruleValue.Yield(context);
+            string targetTag = ruleValue?.Yield(context);
             Cart cart = context.Fact<CommerceContext>()?.GetObject<Cart>();
             if (cart == null || !cart.Lines.Any() || string.IsNullOrEmpty(targetTag))
                 return Enumerable.Empty<CartLineComponent>();
@@ -23,7 +23,7 @@ namespace Feature.Carts.Engine
 
         public static IEnumerable<CartLineComponent> YieldCartLinesWithBrand(this IRuleValue<string> ruleValue, IRuleExecutionContext context)
         {
-            string targetBrand = ruleValue.Yield(context);
+            string targetBrand = ruleValue?.Yield(context);
             Cart cart = context.Fact<CommerceContext>()?.GetObject<Cart>();
             if (cart == null || !cart.Lines.Any() || string.IsNullOrEmpty(targetBrand))
                 return Enumerable.Empty<CartLineComponent>();
@@ -34,7 +34,7 @@ namespace Feature.Carts.Engine
 
         public static IEnumerable<CartLineComponent> YieldCartLinesWithCategory(this IRuleValue<string> ruleValue, IRuleExecutionContext context)
         {
-            string targetCategory = ruleValue.Yield(context);
+            string targetCategory = ruleValue?.Yield(context);
             Cart cart = context.Fact<CommerceContext>()?.GetObject<Cart>();
             if (cart == null || !cart.Lines.Any() || string.IsNullOrEmpty(targetCategory))
                 return Enumerable.Empty<CartLineComponent>();
