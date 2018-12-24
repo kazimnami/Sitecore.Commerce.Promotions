@@ -323,7 +323,7 @@ namespace Feature.Carts.Engine.Tests
 
 
             [Theory, AutoNSubstituteData]
-            public void Execute_09_NoAmount(
+            public void Execute_09_ZeroAmount(
                 BaseCartItemSubtotalAmountOffAction action,
                 IBinaryOperator<decimal, decimal> subtotalOperator,
                 IRuleValue<decimal> subtotal,
