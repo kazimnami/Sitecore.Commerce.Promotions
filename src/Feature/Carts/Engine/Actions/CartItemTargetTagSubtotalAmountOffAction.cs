@@ -1,14 +1,11 @@
-﻿using Sitecore.Commerce.Core;
+﻿using Foundation.Carts.Engine;
 using Sitecore.Commerce.Plugin.Carts;
-using Sitecore.Commerce.Plugin.Pricing;
 using Sitecore.Framework.Rules;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Feature.Carts.Engine
 {
-    [EntityIdentifier(Constants.CartItemTargetTagSubtotalAmountOffAction)]
+    [EntityIdentifier(CartsConstants.Actions.CartItemTargetTagSubtotalAmountOffAction)]
     public class CartItemTargetTagSubtotalAmountOffAction : BaseCartItemSubtotalAmountOffAction
     {
         public IRuleValue<string> TargetTag { get; set; }

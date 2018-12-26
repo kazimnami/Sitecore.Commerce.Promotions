@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Feature.Carts.Engine.Conditions
 {
-    [EntityIdentifier(nameof(CartAnyItemHasBrandCondition))]
+    [EntityIdentifier(CartsConstants.Conditions.CartAnyItemHasBrandCondition)]
     public class CartAnyItemHasBrandCondition : ICartsCondition, ICondition, IMappableRuleEntity
     {
         public IRuleValue<string> Brand { get; set; }

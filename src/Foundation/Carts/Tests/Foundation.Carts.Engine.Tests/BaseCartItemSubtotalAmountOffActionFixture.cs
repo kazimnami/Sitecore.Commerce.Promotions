@@ -9,23 +9,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-//using Sitecore.Commerce.UnitTesting;
-
-namespace Feature.Carts.Engine.Tests
+namespace Foundation.Carts.Engine.Tests
 {
-    public class BaseCartItemSubtotalPercentOffActionFixture
+    public class BaseCartItemSubtotalAmountOffActionFixture
     {
         public class Boundary
         {
             [Theory, AutoNSubstituteData]
             public void Execute_01_NoCommerceContext(
-            BaseCartItemSubtotalPercentOffAction action,
+            BaseCartItemSubtotalAmountOffAction action,
             IBinaryOperator<decimal, decimal> subtotalOperator,
             IRuleValue<decimal> subtotal,
-            IRuleValue<decimal> percentOff,
+            IRuleValue<decimal> amountOff,
             Cart cart,
-            //CartTotals cartTotals,
-            //CommerceContext commerceContext,
             IRuleExecutionContext context)
             {
                 /**********************************************
@@ -35,12 +31,10 @@ namespace Feature.Carts.Engine.Tests
                 cart.Lines.ForEach(l => l.Adjustments.Clear());
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs((CommerceContext)null);
-                //commerceContext.AddObject(cartTotals);
-                //commerceContext.AddObject(cart);
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -57,11 +51,10 @@ namespace Feature.Carts.Engine.Tests
 
             [Theory, AutoNSubstituteData]
             public void Execute_02_NoCart(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IBinaryOperator<decimal, decimal> subtotalOperator,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
-                //Cart cart,
+                IRuleValue<decimal> amountOff,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -69,16 +62,11 @@ namespace Feature.Carts.Engine.Tests
                 /**********************************************
                  * Arrange
                  **********************************************/
-                //cart.Adjustments.Clear();
-                //cart.Lines.ForEach(l => l.Adjustments.Clear());
-
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
-                //commerceContext.AddObject(cart);
-                //action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -89,16 +77,14 @@ namespace Feature.Carts.Engine.Tests
                  * Assert
                  **********************************************/
                 executeAction.Should().NotThrow<Exception>();
-                //cart.Lines.SelectMany(l => l.Adjustments).Should().BeEmpty();
-                //cart.Adjustments.Should().BeEmpty();
             }
 
             [Theory, AutoNSubstituteData]
             public void Execute_03_NoCartLines(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IBinaryOperator<decimal, decimal> subtotalOperator,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -108,7 +94,6 @@ namespace Feature.Carts.Engine.Tests
                  * Arrange
                  **********************************************/
                 cart.Adjustments.Clear();
-                //cart.Lines.ForEach(l => l.Adjustments.Clear());
                 cart.Lines.Clear();
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
@@ -117,7 +102,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -134,12 +119,11 @@ namespace Feature.Carts.Engine.Tests
 
             [Theory, AutoNSubstituteData]
             public void Execute_04_NoCartTotals(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IBinaryOperator<decimal, decimal> subtotalOperator,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
-                //CartTotals cartTotals,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
             {
@@ -150,12 +134,11 @@ namespace Feature.Carts.Engine.Tests
                 cart.Lines.ForEach(l => l.Adjustments.Clear());
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
-                //commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -172,10 +155,10 @@ namespace Feature.Carts.Engine.Tests
 
             [Theory, AutoNSubstituteData]
             public void Execute_05_NoCartTotalLines(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IBinaryOperator<decimal, decimal> subtotalOperator,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -194,7 +177,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -211,10 +194,9 @@ namespace Feature.Carts.Engine.Tests
 
             [Theory, AutoNSubstituteData]
             public void Execute_06_NoSubtotalOperator(
-                BaseCartItemSubtotalPercentOffAction action,
-                //IBinaryOperator<decimal, decimal> subtotalOperator,
+                BaseCartItemSubtotalAmountOffAction action,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -232,7 +214,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = null;
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -249,10 +231,9 @@ namespace Feature.Carts.Engine.Tests
 
             [Theory, AutoNSubstituteData]
             public void Execute_07_NoSubtotal(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IBinaryOperator<decimal, decimal> subtotalOperator,
-                //IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -270,7 +251,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = null;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -286,11 +267,10 @@ namespace Feature.Carts.Engine.Tests
             }
 
             [Theory, AutoNSubstituteData]
-            public void Execute_08_NoPercent(
-                BaseCartItemSubtotalPercentOffAction action,
+            public void Execute_08_NoAmount(
+                BaseCartItemSubtotalAmountOffAction action,
                 IBinaryOperator<decimal, decimal> subtotalOperator,
                 IRuleValue<decimal> subtotal,
-                //IRuleValue<decimal> percentOff,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -308,7 +288,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = subtotal;
-                action.PercentOff = null;
+                action.AmountOff = null;
 
                 /**********************************************
                  * Act
@@ -323,16 +303,17 @@ namespace Feature.Carts.Engine.Tests
                 cart.Adjustments.Should().BeEmpty();
             }
 
+
             [Theory, AutoNSubstituteData]
-            public void Execute_09_ZeroPercent(
-                 BaseCartItemSubtotalPercentOffAction action,
-                 IBinaryOperator<decimal, decimal> subtotalOperator,
-                 IRuleValue<decimal> subtotal,
-                 IRuleValue<decimal> percentOff,
-                 Cart cart,
-                 CartTotals cartTotals,
-                 CommerceContext commerceContext,
-                 IRuleExecutionContext context)
+            public void Execute_09_ZeroAmount(
+                BaseCartItemSubtotalAmountOffAction action,
+                IBinaryOperator<decimal, decimal> subtotalOperator,
+                IRuleValue<decimal> subtotal,
+                IRuleValue<decimal> amountOff,
+                Cart cart,
+                CartTotals cartTotals,
+                CommerceContext commerceContext,
+                IRuleExecutionContext context)
             {
                 /**********************************************
                  * Arrange
@@ -340,7 +321,7 @@ namespace Feature.Carts.Engine.Tests
                 cart.Adjustments.Clear();
                 cart.Lines.ForEach(l => l.Adjustments.Clear());
 
-                percentOff.Yield(context).ReturnsForAnyArgs(0);
+                amountOff.Yield(context).ReturnsForAnyArgs(0);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
@@ -348,7 +329,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -365,10 +346,10 @@ namespace Feature.Carts.Engine.Tests
 
             [Theory, AutoNSubstituteData]
             public void Execute_10_NoMatchingLines(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IBinaryOperator<decimal, decimal> subtotalOperator,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -386,7 +367,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(Enumerable.Empty<CartLineComponent>());
                 action.SubtotalOperator = subtotalOperator;
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -400,14 +381,15 @@ namespace Feature.Carts.Engine.Tests
                 cart.Lines.SelectMany(l => l.Adjustments).Should().BeEmpty();
                 cart.Adjustments.Should().BeEmpty();
             }
+
         }
         public class Functional
         {
             [Theory, AutoNSubstituteData]
             public void Execute_DecimalEqualityOperator_True(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -425,7 +407,7 @@ namespace Feature.Carts.Engine.Tests
                 cartline.Totals.SubTotal.Amount = 150;
                 var cartTotals = new CartTotals(cart);
                 subtotal.Yield(context).ReturnsForAnyArgs(150);
-                percentOff.Yield(context).ReturnsForAnyArgs(25);
+                amountOff.Yield(context).ReturnsForAnyArgs(25);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
@@ -433,7 +415,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = new DecimalEqualityOperator();
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -446,14 +428,14 @@ namespace Feature.Carts.Engine.Tests
                 executeAction.Should().NotThrow<Exception>();
                 cart.Lines.SelectMany(l => l.Adjustments).Should().HaveCount(1);
                 cart.Adjustments.Should().BeEmpty();
-                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(112.5M);
+                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(125);
             }
 
             [Theory, AutoNSubstituteData]
             public void Execute_DecimalEqualityOperator_False(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -470,7 +452,7 @@ namespace Feature.Carts.Engine.Tests
                 var cartline = cart.Lines[1];
                 var cartTotals = new CartTotals(cart);
                 subtotal.Yield(context).ReturnsForAnyArgs(150);
-                percentOff.Yield(context).ReturnsForAnyArgs(25);
+                amountOff.Yield(context).ReturnsForAnyArgs(25);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
@@ -478,7 +460,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = new DecimalEqualityOperator();
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -496,9 +478,9 @@ namespace Feature.Carts.Engine.Tests
 
             [Theory, AutoNSubstituteData]
             public void Execute_DecimalGreaterThanEqualToOperator_True(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -516,7 +498,7 @@ namespace Feature.Carts.Engine.Tests
                 cartline.Totals.SubTotal.Amount = 175;
                 var cartTotals = new CartTotals(cart);
                 subtotal.Yield(context).ReturnsForAnyArgs(150);
-                percentOff.Yield(context).ReturnsForAnyArgs(25);
+                amountOff.Yield(context).ReturnsForAnyArgs(25);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
@@ -524,7 +506,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = new DecimalGreaterThanEqualToOperator();
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -537,15 +519,14 @@ namespace Feature.Carts.Engine.Tests
                 executeAction.Should().NotThrow<Exception>();
                 cart.Lines.SelectMany(l => l.Adjustments).Should().HaveCount(1);
                 cart.Adjustments.Should().BeEmpty();
-                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(131.25M);
+                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(150);
             }
 
             [Theory, AutoNSubstituteData]
             public void Execute_DecimalGreaterThanEqualToOperator_False(
-                BaseCartItemSubtotalPercentOffAction action,
-                //IBinaryOperator<decimal, decimal> subtotalOperator,
+                BaseCartItemSubtotalAmountOffAction action,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -562,7 +543,7 @@ namespace Feature.Carts.Engine.Tests
                 var cartline = cart.Lines[1];
                 var cartTotals = new CartTotals(cart);
                 subtotal.Yield(context).ReturnsForAnyArgs(150);
-                percentOff.Yield(context).ReturnsForAnyArgs(25);
+                amountOff.Yield(context).ReturnsForAnyArgs(25);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
@@ -570,7 +551,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = new DecimalGreaterThanEqualToOperator();
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -588,9 +569,9 @@ namespace Feature.Carts.Engine.Tests
 
             [Theory, AutoNSubstituteData]
             public void Execute_ShouldRoundPriceCalc_True(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -610,7 +591,7 @@ namespace Feature.Carts.Engine.Tests
                 cartline.Totals.SubTotal.Amount = 175;
                 var cartTotals = new CartTotals(cart);
                 subtotal.Yield(context).ReturnsForAnyArgs(150);
-                percentOff.Yield(context).ReturnsForAnyArgs(33.3333333M);
+                amountOff.Yield(context).ReturnsForAnyArgs(25.555555M);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
@@ -618,7 +599,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = new DecimalGreaterThanEqualToOperator();
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -631,25 +612,25 @@ namespace Feature.Carts.Engine.Tests
                 executeAction.Should().NotThrow<Exception>();
                 cart.Lines.SelectMany(l => l.Adjustments).Should().HaveCount(1);
                 cart.Adjustments.Should().BeEmpty();
-                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(116.667M);
+                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(149.444M);
                 cartline.Adjustments.Should().NotBeEmpty();
                 cartline.Adjustments.FirstOrDefault().Should().NotBeNull();
                 cartline.Adjustments.FirstOrDefault().Should().BeOfType<CartLineLevelAwardedAdjustment>();
                 cartline.Adjustments.FirstOrDefault()?.Name.Should().Be(commerceContext.GetPolicy<KnownCartAdjustmentTypesPolicy>().Discount);
                 cartline.Adjustments.FirstOrDefault()?.DisplayName.Should().Be(commerceContext.GetPolicy<KnownCartAdjustmentTypesPolicy>().Discount);
                 cartline.Adjustments.FirstOrDefault()?.AdjustmentType.Should().Be(commerceContext.GetPolicy<KnownCartAdjustmentTypesPolicy>().Discount);
-                cartline.Adjustments.FirstOrDefault()?.AwardingBlock.Should().Contain(nameof(BaseCartItemSubtotalPercentOffAction));
+                cartline.Adjustments.FirstOrDefault()?.AwardingBlock.Should().Contain(nameof(BaseCartItemSubtotalAmountOffAction));
                 cartline.Adjustments.FirstOrDefault()?.IsTaxable.Should().BeFalse();
                 cartline.Adjustments.FirstOrDefault()?.Adjustment.CurrencyCode.Should().Be(commerceContext.CurrentCurrency());
-                cartline.Adjustments.FirstOrDefault()?.Adjustment.Amount.Should().Be(-58.333M);
+                cartline.Adjustments.FirstOrDefault()?.Adjustment.Amount.Should().Be(-25.556M);
                 cartline.HasComponent<MessagesComponent>().Should().BeTrue();
             }
 
             [Theory, AutoNSubstituteData]
             public void Execute_WithProperties(
-                BaseCartItemSubtotalPercentOffAction action,
+                BaseCartItemSubtotalAmountOffAction action,
                 IRuleValue<decimal> subtotal,
-                IRuleValue<decimal> percentOff,
+                IRuleValue<decimal> amountOff,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -667,7 +648,7 @@ namespace Feature.Carts.Engine.Tests
                 cartline.Totals.SubTotal.Amount = 150;
                 var cartTotals = new CartTotals(cart);
                 subtotal.Yield(context).ReturnsForAnyArgs(150);
-                percentOff.Yield(context).ReturnsForAnyArgs(25.55M);
+                amountOff.Yield(context).ReturnsForAnyArgs(25);
                 var propertiesModel = new PropertiesModel();
                 propertiesModel.Properties.Add("PromotionId", "id");
                 propertiesModel.Properties.Add("PromotionCartText", "carttext");
@@ -680,7 +661,7 @@ namespace Feature.Carts.Engine.Tests
                 action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.SubtotalOperator = new DecimalGreaterThanEqualToOperator();
                 action.Subtotal = subtotal;
-                action.PercentOff = percentOff;
+                action.AmountOff = amountOff;
 
                 /**********************************************
                  * Act
@@ -693,17 +674,17 @@ namespace Feature.Carts.Engine.Tests
                 executeAction.Should().NotThrow<Exception>();
                 cart.Lines.SelectMany(l => l.Adjustments).Should().HaveCount(1);
                 cart.Adjustments.Should().BeEmpty();
-                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(111.6750M);
+                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(125);
                 cartline.Adjustments.Should().NotBeEmpty();
                 cartline.Adjustments.FirstOrDefault().Should().NotBeNull();
                 cartline.Adjustments.FirstOrDefault().Should().BeOfType<CartLineLevelAwardedAdjustment>();
                 cartline.Adjustments.FirstOrDefault()?.Name.Should().Be("text");
                 cartline.Adjustments.FirstOrDefault()?.DisplayName.Should().Be("carttext");
                 cartline.Adjustments.FirstOrDefault()?.AdjustmentType.Should().Be(commerceContext.GetPolicy<KnownCartAdjustmentTypesPolicy>().Discount);
-                cartline.Adjustments.FirstOrDefault()?.AwardingBlock.Should().Contain(nameof(BaseCartItemSubtotalPercentOffAction));
+                cartline.Adjustments.FirstOrDefault()?.AwardingBlock.Should().Contain(nameof(BaseCartItemSubtotalAmountOffAction));
                 cartline.Adjustments.FirstOrDefault()?.IsTaxable.Should().BeFalse();
                 cartline.Adjustments.FirstOrDefault()?.Adjustment.CurrencyCode.Should().Be(commerceContext.CurrentCurrency());
-                cartline.Adjustments.FirstOrDefault()?.Adjustment.Amount.Should().Be(-38.325M);
+                cartline.Adjustments.FirstOrDefault()?.Adjustment.Amount.Should().Be(-25);
                 cartline.HasComponent<MessagesComponent>().Should().BeTrue();
             }
         }

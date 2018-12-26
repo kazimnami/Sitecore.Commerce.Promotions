@@ -17,8 +17,4 @@
     <PackageReference Include="System.Threading" Version="4.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Foundation\Carts\Engine\Foundation.Carts.Engine.csproj" />
-  </ItemGroup>
-
 </Project>

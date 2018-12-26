@@ -17,7 +17,7 @@ namespace Feature.Carts.Engine
             Assembly assembly = Assembly.GetExecutingAssembly();
             services.RegisterAllPipelineBlocks(assembly);
             services.RegisterAllCommands(assembly);
-            services.Sitecore().Rules(config => config.Registry(registry => registry.RegisterAssembly(assembly)));
+            services.Sitecore().Rules(rules => rules.Registry(registry => registry.RegisterAssembly(assembly)));
             services.Sitecore().Pipelines(config => config
                 .ConfigurePipeline<IPopulateLineItemPipeline>(pipeline =>
                 {

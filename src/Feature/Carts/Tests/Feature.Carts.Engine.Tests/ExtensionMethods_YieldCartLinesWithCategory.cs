@@ -13,7 +13,7 @@ namespace Feature.Carts.Engine.Tests
     {
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_01_NoCommerceContext(
+        public void YieldCartLines_01_NoCommerceContext(
         IRuleValue<string> targetCategorySitecoreId,
         IRuleExecutionContext context)
         {
@@ -37,7 +37,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_02_NoCart(
+        public void YieldCartLines_02_NoCart(
             IRuleValue<string> targetCategorySitecoreId,
             CommerceContext commerceContext,
             IRuleExecutionContext context)
@@ -62,7 +62,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_03_NoCartLines(
+        public void YieldCartLines_03_NoCartLines(
             IRuleValue<string> targetCategorySitecoreId,
             Cart cart,
             CommerceContext commerceContext,
@@ -91,7 +91,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_04_NoLineItemComponent(
+        public void YieldCartLines_04_NoLineItemComponent(
             IRuleValue<string> targetCategorySitecoreId,
             Cart cart,
             CommerceContext commerceContext,
@@ -118,7 +118,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_05_NoCategory(
+        public void YieldCartLines_05_NoCategory(
             Cart cart,
             CommerceContext commerceContext,
             IRuleExecutionContext context)
@@ -144,7 +144,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_06_EmptyCategory(
+        public void YieldCartLines_06_EmptyCategory(
             IRuleValue<string> targetCategorySitecoreId,
             Cart cart,
             LineItemProductExtendedComponent component,
@@ -174,7 +174,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_07_Single(
+        public void YieldCartLines_07_Single(
             IRuleValue<string> targetCategorySitecoreId,
             Cart cart,
             LineItemProductExtendedComponent component,
@@ -202,7 +202,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_08_Multiple(
+        public void YieldCartLines_08_Multiple(
             IRuleValue<string> targetCategorySitecoreId,
             Cart cart,
             LineItemProductExtendedComponent component,

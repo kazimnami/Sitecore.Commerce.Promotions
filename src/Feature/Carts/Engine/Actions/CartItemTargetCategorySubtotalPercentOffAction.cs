@@ -1,14 +1,11 @@
-﻿using Sitecore.Commerce.Core;
+﻿using Foundation.Carts.Engine;
 using Sitecore.Commerce.Plugin.Carts;
-using Sitecore.Commerce.Plugin.Pricing;
 using Sitecore.Framework.Rules;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Feature.Carts.Engine
 {
-    [EntityIdentifier(Constants.CartItemTargetCategorySubtotalPercentOffAction)]
+    [EntityIdentifier(CartsConstants.Actions.CartItemTargetCategorySubtotalPercentOffAction)]
     public class CartItemTargetCategorySubtotalPercentOffAction : BaseCartItemSubtotalPercentOffAction, ICartLineAction, ICartsAction, IAction, IMappableRuleEntity
     {
         public IRuleValue<string> TargetCategorySitecoreId { get; set; }

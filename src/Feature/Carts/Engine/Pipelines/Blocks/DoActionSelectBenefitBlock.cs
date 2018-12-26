@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Feature.Carts.Engine
 {
-    [PipelineDisplayName(Constants.Pipelines.Blocks.DoActionSelectBenefitBlock)]
+    [PipelineDisplayName(CartsConstants.Pipelines.Blocks.DoActionSelectBenefitBlock)]
     public class DoActionSelectBenefitBlock : PipelineBlock<EntityView, EntityView, CommercePipelineExecutionContext>
     {
         private readonly CommerceCommander _commander;

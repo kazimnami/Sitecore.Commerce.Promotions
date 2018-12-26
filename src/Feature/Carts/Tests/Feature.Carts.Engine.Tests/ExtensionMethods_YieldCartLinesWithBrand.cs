@@ -13,7 +13,7 @@ namespace Feature.Carts.Engine.Tests
     {
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_01_NoCommerceContext(
+        public void YieldCartLines_01_NoCommerceContext(
         IRuleValue<string> targetBrand,
         IRuleExecutionContext context)
         {
@@ -37,7 +37,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_02_NoCart(
+        public void YieldCartLines_02_NoCart(
             IRuleValue<string> targetBrand,
             CommerceContext commerceContext,
             IRuleExecutionContext context)
@@ -62,7 +62,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_03_NoCartLines(
+        public void YieldCartLines_03_NoCartLines(
             IRuleValue<string> targetBrand,
             Cart cart,
             CommerceContext commerceContext,
@@ -91,7 +91,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_04_NoLineItemComponent(
+        public void YieldCartLines_04_NoLineItemComponent(
             IRuleValue<string> targetBrand,
             Cart cart,
             CommerceContext commerceContext,
@@ -118,7 +118,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_05_NoTargetBrand(
+        public void YieldCartLines_05_NoTargetBrand(
             CartItemTargetBrandSubtotalAmountOffAction action,
             Cart cart,
             CommerceContext commerceContext,
@@ -145,7 +145,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_06_EmptyTargetBrand(
+        public void YieldCartLines_06_EmptyTargetBrand(
             IRuleValue<string> targetBrand,
             Cart cart,
             LineItemProductExtendedComponent component,
@@ -175,7 +175,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_07_Single(
+        public void YieldCartLines_07_Single(
             IRuleValue<string> targetBrand,
             Cart cart,
             LineItemProductExtendedComponent component,
@@ -203,7 +203,7 @@ namespace Feature.Carts.Engine.Tests
         }
 
         [Theory, AutoNSubstituteData]
-        public void MatchingLines_08_Multiple(
+        public void YieldCartLines_08_Multiple(
             IRuleValue<string> targetBrand,
             Cart cart,
             LineItemProductExtendedComponent component,

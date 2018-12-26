@@ -21,6 +21,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feature.Carts.Engine", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feature.Carts.Engine.Tests", "src\Feature\Carts\Tests\Feature.Carts.Engine.Tests\Feature.Carts.Engine.Tests.csproj", "{11FC05C9-216F-4E45-9ACC-CAA037533619}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Promotions", "Promotions", "{1E51B8F3-9A83-4AEB-9E54-C15ABE9F50FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feature.Promotions.Engine", "src\Feature\Promotions\Engine\Feature.Promotions.Engine.csproj", "{6D52D76C-B380-4323-9A25-797F2F08306A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feature.Promotions.Engine.Tests", "src\Feature\Promotions\Tests\Feature.Promotions.Engine.Tests\Feature.Promotions.Engine.Tests.csproj", "{1A11B0E3-121E-492F-9C92-9BF338EA9472}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Carts", "Carts", "{2BF6044B-5112-459F-8814-72D50437AE27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foundation.Carts.Engine", "src\Foundation\Carts\Engine\Foundation.Carts.Engine.csproj", "{79FF10B1-765B-4889-86FF-E3504AB815A2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Foundation.Carts.Engine.Tests", "src\Foundation\Carts\Tests\Foundation.Carts.Engine.Tests\Foundation.Carts.Engine.Tests.csproj", "{F87B315D-09F6-4E68-94BB-3E62ECB49F0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +47,22 @@ Global
 		{11FC05C9-216F-4E45-9ACC-CAA037533619}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11FC05C9-216F-4E45-9ACC-CAA037533619}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11FC05C9-216F-4E45-9ACC-CAA037533619}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D52D76C-B380-4323-9A25-797F2F08306A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D52D76C-B380-4323-9A25-797F2F08306A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D52D76C-B380-4323-9A25-797F2F08306A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D52D76C-B380-4323-9A25-797F2F08306A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A11B0E3-121E-492F-9C92-9BF338EA9472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A11B0E3-121E-492F-9C92-9BF338EA9472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A11B0E3-121E-492F-9C92-9BF338EA9472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A11B0E3-121E-492F-9C92-9BF338EA9472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79FF10B1-765B-4889-86FF-E3504AB815A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79FF10B1-765B-4889-86FF-E3504AB815A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79FF10B1-765B-4889-86FF-E3504AB815A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79FF10B1-765B-4889-86FF-E3504AB815A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F87B315D-09F6-4E68-94BB-3E62ECB49F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F87B315D-09F6-4E68-94BB-3E62ECB49F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F87B315D-09F6-4E68-94BB-3E62ECB49F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F87B315D-09F6-4E68-94BB-3E62ECB49F0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +71,12 @@ Global
 		{98E49370-6C53-4A4F-9B66-AF3992A64DEE} = {872AD8A1-5DB8-4900-9733-5E0D1AD9C83B}
 		{05679983-3FA0-4BBF-9A68-6922DD5C744D} = {98E49370-6C53-4A4F-9B66-AF3992A64DEE}
 		{11FC05C9-216F-4E45-9ACC-CAA037533619} = {98E49370-6C53-4A4F-9B66-AF3992A64DEE}
+		{1E51B8F3-9A83-4AEB-9E54-C15ABE9F50FE} = {872AD8A1-5DB8-4900-9733-5E0D1AD9C83B}
+		{6D52D76C-B380-4323-9A25-797F2F08306A} = {1E51B8F3-9A83-4AEB-9E54-C15ABE9F50FE}
+		{1A11B0E3-121E-492F-9C92-9BF338EA9472} = {1E51B8F3-9A83-4AEB-9E54-C15ABE9F50FE}
+		{2BF6044B-5112-459F-8814-72D50437AE27} = {2313DFE5-5149-4843-B89F-979B14725E66}
+		{79FF10B1-765B-4889-86FF-E3504AB815A2} = {2BF6044B-5112-459F-8814-72D50437AE27}
+		{F87B315D-09F6-4E68-94BB-3E62ECB49F0C} = {2BF6044B-5112-459F-8814-72D50437AE27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C18592B4-0F80-4C8E-95B6-1BD5601F6442}

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Feature.Carts.Engine.Conditions
 {
-    [EntityIdentifier(nameof(CartAnyItemHasCategoryCondition))]
+    [EntityIdentifier(CartsConstants.Conditions.CartAnyItemHasCategoryCondition)]
     public class CartAnyItemHasCategoryCondition : ICartsCondition, ICondition, IMappableRuleEntity
     {
         public IRuleValue<string> CategorySitecoreId { get; set; }

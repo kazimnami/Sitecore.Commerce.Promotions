@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Feature.Carts.Engine
 {
-    [PipelineDisplayName(Constants.Pipelines.Blocks.PopulateLineItemProductExtendedBlock)]
+    [PipelineDisplayName(CartsConstants.Pipelines.Blocks.PopulateLineItemProductExtendedBlock)]
     public class PopulateLineItemProductExtendedBlock : PipelineBlock<CartLineComponent, CartLineComponent, CommercePipelineExecutionContext>
     {
         private CommerceCommander CommerceCommander { get; set; }
