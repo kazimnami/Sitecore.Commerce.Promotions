@@ -13,7 +13,9 @@ namespace Feature.Carts.Engine
         public IRuleValue<int> QuantityX { get; set; }
 
         public IRuleValue<int> QuantityY { get; set; }
-        
+
+        public IRuleValue<int> MaximumApplications { get; set; }
+
         public void Execute(IRuleExecutionContext context)
         {
             var commerceContext = context.Fact<CommerceContext>();
@@ -26,7 +28,8 @@ namespace Feature.Carts.Engine
 
             var quantityX = QuantityX.Yield(context);
             var quantityY = QuantityY.Yield(context);
-            if (quantityX <= 0 || quantityY <= 0 || quantityX <= quantityY)
+            var maximumApplications = MaximumApplications.Yield(context);
+            if (quantityX <= 0 || quantityY <= 0 || quantityX <= quantityY || maximumApplications < 0)
             {
                 return;
             }
@@ -50,6 +53,10 @@ namespace Feature.Carts.Engine
                 }
 
                 var timesQualified = Math.Floor(line.Quantity / quantityX);
+                if (maximumApplications > 0 && maximumApplications < timesQualified)
+                {
+                    timesQualified = maximumApplications;
+                }
                 var policy = line.GetPolicy<PurchaseOptionMoneyPolicy>();
                 var discountValue = (quantityX - quantityY) * policy.SellPrice.Amount * timesQualified;
 

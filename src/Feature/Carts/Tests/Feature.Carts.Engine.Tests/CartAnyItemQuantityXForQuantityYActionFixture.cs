@@ -17,13 +17,14 @@ namespace Feature.Carts.Engine.Tests
         {
             [Theory, AutoNSubstituteData]
             public void Execute_01_NoCommerceContext(
-            CartAnyItemQuantityXForQuantityYAction action,
-            IRuleValue<int> quantityX,
-            IRuleValue<int> quantityY,
-            Cart cart,
-            //CartTotals cartTotals,
-            //CommerceContext commerceContext,
-            IRuleExecutionContext context)
+                CartAnyItemQuantityXForQuantityYAction action,
+                IRuleValue<int> quantityX,
+                IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
+                Cart cart,
+                //CartTotals cartTotals,
+                //CommerceContext commerceContext,
+                IRuleExecutionContext context)
             {
                 /**********************************************
                  * Arrange
@@ -36,6 +37,7 @@ namespace Feature.Carts.Engine.Tests
                 //commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -55,6 +57,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 //Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -72,6 +75,7 @@ namespace Feature.Carts.Engine.Tests
                 //action.MatchingLines(context).ReturnsForAnyArgs(cart.Lines);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -91,6 +95,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -108,6 +113,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -127,6 +133,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 //CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -143,6 +150,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -162,6 +170,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -179,6 +188,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -198,6 +208,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 //IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -214,6 +225,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = null;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -233,6 +245,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -251,6 +264,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -270,6 +284,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 //IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -286,6 +301,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = null;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -305,6 +321,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -323,6 +340,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -342,6 +360,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
@@ -361,6 +380,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -380,6 +400,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -409,6 +430,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -423,6 +445,43 @@ namespace Feature.Carts.Engine.Tests
                 cart.Adjustments.Should().BeEmpty();
             }
 
+            [Theory, AutoNSubstituteData]
+            public void Execute_13_NoMaximumApplications(
+                CartAnyItemQuantityXForQuantityYAction action,
+                IRuleValue<int> quantityX,
+                IRuleValue<int> quantityY,
+                //IRuleValue<int> maximumApplications,
+                Cart cart,
+                CartTotals cartTotals,
+                CommerceContext commerceContext,
+                IRuleExecutionContext context)
+            {
+                /**********************************************
+                 * Arrange
+                 **********************************************/
+                cart.Adjustments.Clear();
+                cart.Lines.ForEach(l => l.Adjustments.Clear());
+
+                context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
+                commerceContext.AddObject(cartTotals);
+                commerceContext.AddObject(cart);
+                action.QuantityX = quantityX;
+                action.QuantityY = quantityY;
+                action.MaximumApplications = null;
+
+                /**********************************************
+                 * Act
+                 **********************************************/
+                Action executeAction = () => action.Execute(context);
+
+                /**********************************************
+                 * Assert
+                 **********************************************/
+                executeAction.Should().Throw<Exception>();
+                cart.Lines.SelectMany(l => l.Adjustments).Should().BeEmpty();
+                cart.Adjustments.Should().BeEmpty();
+            }
+
         }
         public class Functional
         {
@@ -431,6 +490,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -458,12 +518,14 @@ namespace Feature.Carts.Engine.Tests
                 var cartTotals = new CartTotals(cart);
                 quantityX.Yield(context).ReturnsForAnyArgs(4);
                 quantityY.Yield(context).ReturnsForAnyArgs(3);
+                maximumApplications.Yield(context).ReturnsForAnyArgs(0);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -484,6 +546,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -511,12 +574,14 @@ namespace Feature.Carts.Engine.Tests
                 var cartTotals = new CartTotals(cart);
                 quantityX.Yield(context).ReturnsForAnyArgs(4);
                 quantityY.Yield(context).ReturnsForAnyArgs(3);
+                maximumApplications.Yield(context).ReturnsForAnyArgs(0);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -537,6 +602,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -564,12 +630,14 @@ namespace Feature.Carts.Engine.Tests
                 var cartTotals = new CartTotals(cart);
                 quantityX.Yield(context).ReturnsForAnyArgs(4);
                 quantityY.Yield(context).ReturnsForAnyArgs(3);
+                maximumApplications.Yield(context).ReturnsForAnyArgs(0);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -590,6 +658,7 @@ namespace Feature.Carts.Engine.Tests
                 CartAnyItemQuantityXForQuantityYAction action,
                 IRuleValue<int> quantityX,
                 IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
                 Cart cart,
                 CommerceContext commerceContext,
                 IRuleExecutionContext context)
@@ -617,12 +686,14 @@ namespace Feature.Carts.Engine.Tests
                 var cartTotals = new CartTotals(cart);
                 quantityX.Yield(context).ReturnsForAnyArgs(4);
                 quantityY.Yield(context).ReturnsForAnyArgs(3);
+                maximumApplications.Yield(context).ReturnsForAnyArgs(0);
 
                 context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
                 action.QuantityX = quantityX;
                 action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
 
                 /**********************************************
                  * Act
@@ -636,6 +707,62 @@ namespace Feature.Carts.Engine.Tests
                 cart.Lines.SelectMany(l => l.Adjustments).Should().HaveCount(1);
                 cart.Adjustments.Should().BeEmpty();
                 cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(150);
+            }
+
+            [Theory, AutoNSubstituteData]
+            public void Execute_TimesQualified_Two_MaximumApplications_One(
+                CartAnyItemQuantityXForQuantityYAction action,
+                IRuleValue<int> quantityX,
+                IRuleValue<int> quantityY,
+                IRuleValue<int> maximumApplications,
+                Cart cart,
+                CommerceContext commerceContext,
+                IRuleExecutionContext context)
+            {
+                /**********************************************
+                 * Arrange
+                 **********************************************/
+                cart.Adjustments.Clear();
+                cart.Lines.ForEach(l => l.Adjustments.Clear());
+
+                var globalPricingPolicy = commerceContext.GetPolicy<GlobalPricingPolicy>();
+                globalPricingPolicy.ShouldRoundPriceCalc = false;
+                cart.Lines.ForEach(l => l.Totals.SubTotal.Amount = 100);
+                while (cart.Lines.Count > 1)
+                {
+                    cart.Lines.RemoveAt(0);
+                }
+                var cartline = cart.Lines[0];
+                cartline.Quantity = 8;
+                cartline.Totals.SubTotal.Amount = 200;
+                cartline.SetPolicy(new PurchaseOptionMoneyPolicy
+                {
+                    SellPrice = new Money(25)
+                });
+                var cartTotals = new CartTotals(cart);
+                quantityX.Yield(context).ReturnsForAnyArgs(4);
+                quantityY.Yield(context).ReturnsForAnyArgs(3);
+                maximumApplications.Yield(context).ReturnsForAnyArgs(1);
+
+                context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
+                commerceContext.AddObject(cartTotals);
+                commerceContext.AddObject(cart);
+                action.QuantityX = quantityX;
+                action.QuantityY = quantityY;
+                action.MaximumApplications = maximumApplications;
+
+                /**********************************************
+                 * Act
+                 **********************************************/
+                Action executeAction = () => action.Execute(context);
+
+                /**********************************************
+                 * Assert
+                 **********************************************/
+                executeAction.Should().NotThrow<Exception>();
+                cart.Lines.SelectMany(l => l.Adjustments).Should().HaveCount(1);
+                cart.Adjustments.Should().BeEmpty();
+                cartTotals.Lines[cartline.Id].SubTotal.Amount.Should().Be(175);
             }
         }
     }
