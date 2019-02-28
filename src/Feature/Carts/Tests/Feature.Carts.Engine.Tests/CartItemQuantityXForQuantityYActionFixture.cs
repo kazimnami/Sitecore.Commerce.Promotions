@@ -432,6 +432,58 @@ namespace Feature.Carts.Engine.Tests
                 cart.Adjustments.Should().BeEmpty();
             }
 
+            [Theory, AutoNSubstituteData]
+            public void Execute_12_NoPurchaseOptionMoneyPolicy(
+                CartItemQuantityXForQuantityYAction action,
+                IRuleValue<string> targetItemId,
+                IRuleValue<int> quantityX,
+                IRuleValue<int> quantityY,
+                Cart cart,
+                CommerceContext commerceContext,
+                IRuleExecutionContext context)
+            {
+                /**********************************************
+                 * Arrange
+                 **********************************************/
+                cart.Adjustments.Clear();
+                cart.Lines.ForEach(l => l.Adjustments.Clear());
+
+                var globalPricingPolicy = commerceContext.GetPolicy<GlobalPricingPolicy>();
+                globalPricingPolicy.ShouldRoundPriceCalc = false;
+                cart.Lines.ForEach(l => l.Totals.SubTotal.Amount = 100);
+                while (cart.Lines.Count > 1)
+                {
+                    cart.Lines.RemoveAt(0);
+                }
+                var cartline = cart.Lines[0];
+                cartline.Quantity = 4;
+                cartline.Totals.SubTotal.Amount = 100;
+                cartline.ItemId = "Habitat_Master|12345|";
+                var cartTotals = new CartTotals(cart);
+                targetItemId.Yield(context).ReturnsForAnyArgs("Habitat_Master|12345|");
+                quantityX.Yield(context).ReturnsForAnyArgs(4);
+                quantityY.Yield(context).ReturnsForAnyArgs(3);
+
+                context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
+                commerceContext.AddObject(cartTotals);
+                commerceContext.AddObject(cart);
+                action.TargetItemId = targetItemId;
+                action.QuantityX = quantityX;
+                action.QuantityY = quantityY;
+
+                /**********************************************
+                 * Act
+                 **********************************************/
+                Action executeAction = () => action.Execute(context);
+
+                /**********************************************
+                 * Assert
+                 **********************************************/
+                executeAction.Should().NotThrow<Exception>();
+                cart.Lines.SelectMany(l => l.Adjustments).Should().HaveCount(0);
+                cart.Adjustments.Should().BeEmpty();
+            }
+
         }
         public class Functional
         {
@@ -461,8 +513,11 @@ namespace Feature.Carts.Engine.Tests
                 var cartline = cart.Lines[0];
                 cartline.Quantity = 7;
                 cartline.Totals.SubTotal.Amount = 175;
-                cartline.UnitListPrice.Amount = 25;
                 cartline.ItemId = "Habitat_Master|12345|";
+                cartline.SetPolicy(new PurchaseOptionMoneyPolicy
+                {
+                    SellPrice = new Money(25)
+                });
                 var cartTotals = new CartTotals(cart);
                 targetItemId.Yield(context).ReturnsForAnyArgs("Habitat_Master|54321|");
                 quantityX.Yield(context).ReturnsForAnyArgs(4);
@@ -515,8 +570,11 @@ namespace Feature.Carts.Engine.Tests
                 var cartline = cart.Lines[0];
                 cartline.Quantity = 3;
                 cartline.Totals.SubTotal.Amount = 75;
-                cartline.UnitListPrice.Amount = 25;
                 cartline.ItemId = "Habitat_Master|12345|";
+                cartline.SetPolicy(new PurchaseOptionMoneyPolicy
+                {
+                    SellPrice = new Money(25)
+                });
                 var cartTotals = new CartTotals(cart);
                 targetItemId.Yield(context).ReturnsForAnyArgs("Habitat_Master|12345|");
                 quantityX.Yield(context).ReturnsForAnyArgs(4);
@@ -569,8 +627,11 @@ namespace Feature.Carts.Engine.Tests
                 var cartline = cart.Lines[0];
                 cartline.Quantity = 4;
                 cartline.Totals.SubTotal.Amount = 100;
-                cartline.UnitListPrice.Amount = 25;
                 cartline.ItemId = "Habitat_Master|12345|";
+                cartline.SetPolicy(new PurchaseOptionMoneyPolicy
+                {
+                    SellPrice = new Money(25)
+                });
                 var cartTotals = new CartTotals(cart);
                 targetItemId.Yield(context).ReturnsForAnyArgs("Habitat_Master|12345|");
                 quantityX.Yield(context).ReturnsForAnyArgs(4);
@@ -623,8 +684,11 @@ namespace Feature.Carts.Engine.Tests
                 var cartline = cart.Lines[0];
                 cartline.Quantity = 7;
                 cartline.Totals.SubTotal.Amount = 175;
-                cartline.UnitListPrice.Amount = 25;
                 cartline.ItemId = "Habitat_Master|12345|";
+                cartline.SetPolicy(new PurchaseOptionMoneyPolicy
+                {
+                    SellPrice = new Money(25)
+                });
                 var cartTotals = new CartTotals(cart);
                 targetItemId.Yield(context).ReturnsForAnyArgs("Habitat_Master|12345|");
                 quantityX.Yield(context).ReturnsForAnyArgs(4);
@@ -677,8 +741,11 @@ namespace Feature.Carts.Engine.Tests
                 var cartline = cart.Lines[0];
                 cartline.Quantity = 8;
                 cartline.Totals.SubTotal.Amount = 200;
-                cartline.UnitListPrice.Amount = 25;
                 cartline.ItemId = "Habitat_Master|12345|";
+                cartline.SetPolicy(new PurchaseOptionMoneyPolicy
+                {
+                    SellPrice = new Money(25)
+                });
                 var cartTotals = new CartTotals(cart);
                 targetItemId.Yield(context).ReturnsForAnyArgs("Habitat_Master|12345|");
                 quantityX.Yield(context).ReturnsForAnyArgs(4);

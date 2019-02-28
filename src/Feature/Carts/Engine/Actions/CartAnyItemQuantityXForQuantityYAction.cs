@@ -43,8 +43,14 @@ namespace Feature.Carts.Engine
 
             foreach (var line in lines)
             {
+                if (!totals.Lines.ContainsKey(line.Id) || !line.HasPolicy<PurchaseOptionMoneyPolicy>())
+                {
+                    return;
+                }
+
                 var timesQualified = Math.Floor(line.Quantity / quantityX);
-                var discountValue = (quantityX - quantityY) * line.UnitListPrice.Amount * timesQualified;
+                var policy = line.GetPolicy<PurchaseOptionMoneyPolicy>();
+                var discountValue = (quantityX - quantityY) * policy.SellPrice.Amount * timesQualified;
 
                 if (commerceContext.GetPolicy<GlobalPricingPolicy>().ShouldRoundPriceCalc)
                 {
@@ -53,8 +59,7 @@ namespace Feature.Carts.Engine
                             commerceContext.GetPolicy<GlobalPricingPolicy>().RoundDigits,
                             commerceContext.GetPolicy<GlobalPricingPolicy>().MidPointRoundUp ?
                                 MidpointRounding.AwayFromZero :
-                                MidpointRounding.ToEven
-                        );
+                                MidpointRounding.ToEven);
                 }
 
                 discountValue *= decimal.MinusOne;
@@ -67,7 +72,7 @@ namespace Feature.Carts.Engine
                     IsTaxable = false,
                     AwardingBlock = nameof(CartAnyItemQuantityXForQuantityYAction)
                 });
-                totals.Lines[line.Id].SubTotal.Amount = totals.Lines[line.Id].SubTotal.Amount + discountValue;
+                totals.Lines[line.Id].SubTotal.Amount += discountValue;
                 line.GetComponent<MessagesComponent>().AddMessage(
                     commerceContext.GetPolicy<KnownMessageCodePolicy>().Promotions,
                     $"PromotionApplied: {propertiesModel?.GetPropertyValue("PromotionId") ?? nameof(CartAnyItemQuantityXForQuantityYAction)}");
