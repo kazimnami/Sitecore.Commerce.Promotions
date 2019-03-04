@@ -28,17 +28,20 @@ namespace Feature.Catalog.Engine
         {
             var assembly = Assembly.GetExecutingAssembly();
             services.RegisterAllPipelineBlocks(assembly);
-            
+
             services.Sitecore().Pipelines(config => config
                 .ConfigurePipeline<IDoActionPipeline>(pipeline => pipeline
                     .Add<Pipelines.Blocks.DoActionSelectQualificationBlock>().After<Sitecore.Commerce.Plugin.Promotions.DoActionSelectQualificationBlock>()
                     .Add<Pipelines.Blocks.DoActionSelectBenefitBlock>().After<Sitecore.Commerce.Plugin.Promotions.DoActionSelectBenefitBlock>()
                     .Add<Pipelines.Blocks.DoActionAddQualificationBlock>().Before<Sitecore.Commerce.Plugin.Promotions.DoActionAddQualificationBlock>()
                     .Add<Pipelines.Blocks.DoActionAddBenefitBlock>().Before<Sitecore.Commerce.Plugin.Promotions.DoActionAddBenefitBlock>()
-                    .Add<Pipelines.Blocks.GetPromotionQualificationDetailsViewBlock>().After<Sitecore.Commerce.Plugin.Promotions.GetPromotionQualificationDetailsViewBlock>()
-                    .Add<Pipelines.Blocks.GetPromotionBenefitDetailsViewBlock>().After<Sitecore.Commerce.Plugin.Promotions.GetPromotionBenefitDetailsViewBlock>()
                     .Add<Pipelines.Blocks.DoActionEditQualificationBlock>().Before<Sitecore.Commerce.Plugin.Promotions.DoActionEditQualificationBlock>()
                     .Add<Pipelines.Blocks.DoActionEditBenefitBlock>().Before<Sitecore.Commerce.Plugin.Promotions.DoActionEditBenefitBlock>()
+                )
+
+                .ConfigurePipeline<IGetEntityViewPipeline>(pipeline => pipeline
+                    .Add<Pipelines.Blocks.GetPromotionQualificationDetailsViewBlock>().After<Sitecore.Commerce.Plugin.Promotions.GetPromotionQualificationDetailsViewBlock>()
+                    .Add<Pipelines.Blocks.GetPromotionBenefitDetailsViewBlock>().After<Sitecore.Commerce.Plugin.Promotions.GetPromotionBenefitDetailsViewBlock>()
                 )
             );
 

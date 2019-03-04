@@ -22,6 +22,26 @@ namespace Feature.Catalog.Engine
             public static class Blocks
             {
                 /// <summary>
+                /// The base apply category autocomplete for get block name.
+                /// </summary>
+                public const string BaseApplyCategoryAutocompleteForGet = "Catalog.Block.BaseApplyCategoryAutocompleteForGet";
+
+                /// <summary>
+                /// The base apply category autocomplete for select block name.
+                /// </summary>
+                public const string BaseApplyCategoryAutocompleteForSelect = "Catalog.Block.BaseApplyCategoryAutocompleteForSelect";
+
+                /// <summary>
+                /// The base apply category sitecore id for add block name.
+                /// </summary>
+                public const string BaseApplyCategorySitecoreIdForAdd = "Catalog.Block.BaseApplyCategorySitecoreIdForAdd";
+
+                /// <summary>
+                /// The base apply category sitecore id for edit block name.
+                /// </summary>
+                public const string BaseApplyCategorySitecoreIdForEdit = "Catalog.Block.BaseApplyCategorySitecoreIdForEdit";
+
+                /// <summary>
                 /// The do action add benefit block name.
                 /// </summary>
                 public const string DoActionAddBenefit = "Catalog.Block.DoActionAddBenefit";
