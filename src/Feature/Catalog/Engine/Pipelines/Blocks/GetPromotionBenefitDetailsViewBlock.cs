@@ -75,29 +75,22 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
             return await Task.FromResult(entityView);
         }
 
+        /// <summary>Sets the CategoryId view property to autocomplete.</summary>
+        /// <param name="view">The <see cref="EntityView"/>.</param>
+        /// <param name="context">The context.</param>
         protected virtual void PopulateItemDetails(EntityView view, CommercePipelineExecutionContext context)
         {
             if (view == null)
             {
                 return;
             }
-            
+
             var categoryId = view.GetProperty("CategoryId");
             if (categoryId == null)
             {
                 return;
             }
-            
-            var viewProperty = new ViewProperty
-            {
-                Name = "CategoryId",
-                DisplayName = "CategoryId",
-                RawValue = categoryId.RawValue,
-                Value = categoryId.Value,
-                IsHidden = false,
-                OriginalType = string.Empty.GetType().FullName,
-                IsRequired = true
-            };
+
             var policyByType = SearchScopePolicy.GetPolicyByType(
                 context.CommerceContext,
                 context.CommerceContext.Environment,
@@ -112,11 +105,10 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
                         new Model() { Name = "Category" }
                     }
                 };
-                viewProperty.UiType = "Autocomplete";
-                viewProperty.Policies.Add(policy);
-                viewProperty.Policies.Add(policyByType);
+                categoryId.UiType = "Autocomplete";
+                categoryId.Policies.Add(policy);
+                categoryId.Policies.Add(policyByType);
             }
-            view.Properties.Add(viewProperty);
         }
     }
 }

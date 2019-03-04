@@ -37,8 +37,8 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
         /// <summary>Initializes a new instance of the <see cref="T:Sitecore.Framework.Pipelines.PipelineBlock" /> class.</summary>
         /// <param name="commander">The commerce commander.</param>
         public DoActionSelectQualificationBlock(CommerceCommander commander)
-		    : base(null)
-		{
+            : base(null)
+        {
             this.Commander = commander;
         }
 
@@ -75,28 +75,22 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
             return await Task.FromResult(entityView);
         }
 
+        /// <summary>Sets the CategoryId view property to autocomplete.</summary>
+        /// <param name="view">The <see cref="EntityView"/>.</param>
+        /// <param name="context">The context.</param>
         protected virtual void PopulateItemDetails(EntityView view, CommercePipelineExecutionContext context)
         {
             if (view == null)
             {
                 return;
             }
-            
-            if (view.ContainsProperty("CategoryId"))
+
+            var categoryId = view.GetProperty("CategoryId");
+            if (categoryId == null)
             {
                 return;
             }
 
-            var viewProperty = new ViewProperty
-            {
-                Name = "CategoryId",
-                DisplayName = "CategoryId",
-                RawValue = string.Empty,
-                Value = string.Empty,
-                IsHidden = false,
-                OriginalType = string.Empty.GetType().FullName,
-                IsRequired = true
-            };
             var policyByType = SearchScopePolicy.GetPolicyByType(
                 context.CommerceContext,
                 context.CommerceContext.Environment,
@@ -111,11 +105,10 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
                         new Model() { Name = "Category" }
                     }
                 };
-                viewProperty.UiType = "Autocomplete";
-                viewProperty.Policies.Add(policy);
-                viewProperty.Policies.Add(policyByType);
+                categoryId.UiType = "Autocomplete";
+                categoryId.Policies.Add(policy);
+                categoryId.Policies.Add(policyByType);
             }
-            view.Properties.Add(viewProperty);
         }
     }
 }

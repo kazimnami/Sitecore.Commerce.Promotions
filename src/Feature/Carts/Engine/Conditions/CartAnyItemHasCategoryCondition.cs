@@ -11,6 +11,8 @@ namespace Feature.Carts.Engine.Conditions
     {
         public IRuleValue<string> TargetCategorySitecoreId { get; set; }
 
+        public IRuleValue<string> CategoryId { get; set; }
+
         public bool Evaluate(IRuleExecutionContext context)
         {
             return TargetCategorySitecoreId.YieldCartLinesWithCategory(context).Any();
