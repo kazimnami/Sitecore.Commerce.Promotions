@@ -32,9 +32,9 @@ namespace Feature.Catalog.Engine
                 public const string BaseApplyCategoryAutocompleteForSelect = "Catalog.Block.BaseApplyCategoryAutocompleteForSelect";
 
                 /// <summary>
-                /// The base apply category sitecore id for add block name.
+                /// The base apply category sitecore id block name.
                 /// </summary>
-                public const string BaseApplyCategorySitecoreIdForAdd = "Catalog.Block.BaseApplyCategorySitecoreIdForAdd";
+                public const string BaseApplyCategorySitecoreId = "Catalog.Block.BaseApplyCategorySitecoreId";
 
                 /// <summary>
                 /// The base apply category sitecore id for edit block name.

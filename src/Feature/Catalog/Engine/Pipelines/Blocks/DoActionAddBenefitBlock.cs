@@ -14,7 +14,7 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
     /// <inheritdoc />
     /// <summary> Defines the add benefit action pipeline block</summary>
     [PipelineDisplayName(CatalogConstants.Pipelines.Blocks.DoActionAddBenefit)]
-    public class DoActionAddBenefitBlock : BaseApplyCategorySitecoreIdForAddBlock
+    public class DoActionAddBenefitBlock : BaseApplyCategorySitecoreIdBlock
     {
         /// <inheritdoc />
         /// <summary>Initializes a new instance of the <see cref="T:Sitecore.Framework.Pipelines.PipelineBlock" /> class.</summary>

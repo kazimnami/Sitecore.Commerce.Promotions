@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="BaseApplyCategorySitecoreIdForEditBlock.cs" company="Sitecore Corporation">
+// <copyright file="BaseApplyCategorySitecoreIdBlock.cs" company="Sitecore Corporation">
 //   Copyright (c) Sitecore Corporation 1999-2019
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -10,6 +10,7 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
     using Sitecore.Commerce.EntityViews;
     using Sitecore.Commerce.Plugin.Catalog;
     using Sitecore.Commerce.Plugin.Promotions;
+    using Sitecore.Framework.Conditions;
     using Sitecore.Framework.Pipelines;
     using System;
     using System.Linq;
@@ -23,18 +24,18 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
     ///         Sitecore.Commerce.EntityViews.EntityView, Sitecore.Commerce.Core.CommercePipelineExecutionContext}
     ///     </cref>
     /// </seealso>
-    [PipelineDisplayName(CatalogConstants.Pipelines.Blocks.BaseApplyCategorySitecoreIdForEdit)]
-    public abstract class BaseApplyCategorySitecoreIdForEditBlock : PipelineBlock<EntityView, EntityView, CommercePipelineExecutionContext>
+    [PipelineDisplayName(CatalogConstants.Pipelines.Blocks.BaseApplyCategorySitecoreId)]
+    public abstract class BaseApplyCategorySitecoreIdBlock : PipelineBlock<EntityView, EntityView, CommercePipelineExecutionContext>
     {
         /// <summary>Gets or sets the commander.</summary>
         /// <value>The commander.</value>
-        protected readonly CommerceCommander Commander;
+        protected CommerceCommander Commander { get; set; }
 
         /// <inheritdoc />
         /// <summary>Initializes a new instance of the <see cref="T:Sitecore.Framework.Pipelines.PipelineBlock" /> class.</summary>
         /// <param name="commander">The commerce commander.</param>
-        public BaseApplyCategorySitecoreIdForEditBlock(CommerceCommander commander)
-          : base(null)
+        public BaseApplyCategorySitecoreIdBlock(CommerceCommander commander)
+            : base(null)
         {
             this.Commander = commander;
         }
@@ -45,6 +46,8 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
         /// <returns>The <see cref="EntityView"/>.</returns>
         public override async Task<EntityView> Run(EntityView entityView, CommercePipelineExecutionContext context)
         {
+            Condition.Requires(entityView).IsNotNull($"{this.Name}: The entity view can not be null");
+
             if (string.IsNullOrEmpty(entityView?.Action)
                     || !entityView.Action.Equals(this.GetActionName(context), StringComparison.OrdinalIgnoreCase)
                     || (!entityView.Name.Equals(this.GetEntityViewName(context), StringComparison.OrdinalIgnoreCase)

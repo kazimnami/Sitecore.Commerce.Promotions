@@ -14,7 +14,7 @@ namespace Feature.Catalog.Engine.Pipelines.Blocks
     /// <inheritdoc />
     /// <summary>Defines the edit qualification action pipeline block</summary>
     [PipelineDisplayName(CatalogConstants.Pipelines.Blocks.DoActionEditQualification)]
-    public class DoActionEditQualificationBlock : BaseApplyCategorySitecoreIdForEditBlock
+    public class DoActionEditQualificationBlock : BaseApplyCategorySitecoreIdBlock
     {
         /// <inheritdoc />
         /// <summary>Initializes a new instance of the <see cref="T:Sitecore.Framework.Pipelines.PipelineBlock" /> class.</summary>
