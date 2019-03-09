@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Foundation\Carts\Engine\Foundation.Carts.Engine.csproj" />
+    <ProjectReference Include="..\..\..\Foundation\Rules\Engine\Foundation.Rules.Engine.csproj" />
   </ItemGroup>
 
 </Project>
