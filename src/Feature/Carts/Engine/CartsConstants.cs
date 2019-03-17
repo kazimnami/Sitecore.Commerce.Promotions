@@ -25,6 +25,12 @@
             public const string CartItemTargetBrandSubtotalAmountOffAction = nameof(CartItemTargetBrandSubtotalAmountOffAction);
             public const string CartItemTargetTagSubtotalPercentOffAction = nameof(CartItemTargetTagSubtotalPercentOffAction);
             public const string CartItemTargetTagSubtotalAmountOffAction = nameof(CartItemTargetTagSubtotalAmountOffAction);
+
+            // "Get [Target Item Id] Gift With Purchase"
+            public const string CartItemTargetIdFreeGiftAction = nameof(CartItemTargetIdFreeGiftAction);
+
+            // "Get [Target Tag] Gift With Purchase"
+            public const string CartItemTargetTagFreeGiftAction = nameof(CartItemTargetTagFreeGiftAction);
         }
     }
 }
