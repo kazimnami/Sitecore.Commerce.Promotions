@@ -84,8 +84,8 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
             await this.CreatePercentOffAudioCategoryPromotion(book, context);
             await this.CreateAmountOffEarbudsTagPromotion(book, context);
             await this.CreatePercentOffEarbudsTagPromotion(book, context);
-            await this.CreateAmountOffElectronicsBrandPromotion(book, context);
-            await this.CreatePercentOffElectronicsBrandPromotion(book, context);
+            await this.CreateAmountOffKickbudsBrandPromotion(book, context);
+            await this.CreatePercentOffKickbudsBrandPromotion(book, context);
 
             return arg;
         }
@@ -430,7 +430,7 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                             Properties = new List<PropertyModel>
                             {
                                 this.AddProperty("TargetItemId", "Habitat_Master|6042062|", Constants.DisplayType.String),
-                                this.AddProperty("QuantityX", "4", Constants.DisplayType.Integer),
+                                this.AddProperty("QuantityX", "3", Constants.DisplayType.Integer),
                                 this.AddProperty("SellPrice", "50", Constants.DisplayType.Decimal),
                                 this.AddProperty("MaximumApplications", "0", Constants.DisplayType.Integer)
                             }
@@ -718,24 +718,24 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
             await Commander.Pipeline<PersistEntityPipeline>().Run(new PersistEntityArgument(promotion), context);
         }
 
-        /// <summary>
-        /// Creates $ discount on electronics brand promotion.
-        /// </summary>
-        /// <param name="book">The book.</param>
-        /// <param name="context">The context.</param>
-        /// <returns>A <see cref="Task"/></returns>
-        private async Task CreateAmountOffElectronicsBrandPromotion(PromotionBook book, CommercePipelineExecutionContext context)
+		/// <summary>
+		/// Creates $ discount on Kickbuds brand promotion.
+		/// </summary>
+		/// <param name="book">The book.</param>
+		/// <param name="context">The context.</param>
+		/// <returns>A <see cref="Task"/></returns>
+		private async Task CreateAmountOffKickbudsBrandPromotion(PromotionBook book, CommercePipelineExecutionContext context)
         {
-            /* #9 $ off Brand */
-            /* Brand: electronics */
-            var promotionId = "_LineBrandAmountDiscountPromotion";
+			/* #9 $ off Brand */
+			/* Brand: Kickbuds */
+			var promotionId = "_LineBrandAmountDiscountPromotion";
             var promotion = await Commander.GetEntity<Promotion>(context.CommerceContext, $"Entity-Promotion-{book.Name}-{promotionId}");
             if (promotion != null)
             {
                 return;
             }
 
-            var promotionName = "$10 off electronics brand products when over $100 spent";
+            var promotionName = "$10 off Kickbuds brand products when over $100 spent";
             promotion =
                 await Commander.Pipeline<AddPromotionPipeline>().Run(
                     new AddPromotionArgument(book, promotionId, DateTimeOffset.UtcNow.AddDays(-2), DateTimeOffset.UtcNow.AddYears(1), promotionName, promotionName)
@@ -757,7 +757,7 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                             Name = "CartAnyItemHasBrandCondition",
                             Properties = new List<PropertyModel>
                             {
-                                this.AddProperty("Brand", "electronics", Constants.DisplayType.String)
+                                this.AddProperty("Brand", "Kickbuds", Constants.DisplayType.String)
                             }
                         }),
                     context);
@@ -773,7 +773,7 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                             Name = "CartItemTargetBrandSubtotalAmountOffAction",
                             Properties = new List<PropertyModel>
                             {
-                                this.AddProperty("TargetBrand", "electronics", Constants.DisplayType.String),
+                                this.AddProperty("TargetBrand", "Kickbuds", Constants.DisplayType.String),
                                 this.AddProperty("SubtotalOperator", Constants.Operators.DecimalGreaterThanEqualToOperator, Constants.DisplayType.BinaryOperatorDec, true),
                                 this.AddProperty("Subtotal", "100", Constants.DisplayType.Decimal),
                                 this.AddProperty("AmountOff", "10", Constants.DisplayType.Decimal)
@@ -781,22 +781,22 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         }),
                     context);
 
-            promotion = await Commander.Pipeline<AddPublicCouponPipeline>().Run(new AddPublicCouponArgument(promotion, "10OFFELECTRONICS"), context);
+            promotion = await Commander.Pipeline<AddPublicCouponPipeline>().Run(new AddPublicCouponArgument(promotion, "10OFFKICKBUDS"), context);
             promotion.SetComponent(new ApprovalComponent(context.GetPolicy<ApprovalStatusPolicy>().Approved));
             await Commander.Pipeline<PersistEntityPipeline>().Run(new PersistEntityArgument(promotion), context);
         }
 
-        /// <summary>
-        /// Creates % discount on electronics brand promotion.
-        /// </summary>
-        /// <param name="book">The book.</param>
-        /// <param name="context">The context.</param>
-        /// <returns>A <see cref="Task"/></returns>
-        private async Task CreatePercentOffElectronicsBrandPromotion(PromotionBook book, CommercePipelineExecutionContext context)
+		/// <summary>
+		/// Creates % discount on Kickbuds brand promotion.
+		/// </summary>
+		/// <param name="book">The book.</param>
+		/// <param name="context">The context.</param>
+		/// <returns>A <see cref="Task"/></returns>
+		private async Task CreatePercentOffKickbudsBrandPromotion(PromotionBook book, CommercePipelineExecutionContext context)
         {
-            /* #18 % off tag */
-            /* Tag: earbuds */
-            var promotionId = "_LineTagPercentDiscountPromotion";
+			/* #8 % off brand */
+			/* Brand: Kickbuds */
+			var promotionId = "_LineBrandPercentDiscountPromotion";
             var promotion = await Commander.GetEntity<Promotion>(context.CommerceContext, $"Entity-Promotion-{book.Name}-{promotionId}");
             if (promotion != null)
             {
@@ -821,11 +821,11 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         {
                             ConditionOperator = "And",
                             Id = Guid.NewGuid().ToString(),
-                            LibraryId = CartsConstants.Conditions.CartAnyItemHasTagCondition,
-                            Name = CartsConstants.Conditions.CartAnyItemHasTagCondition,
+                            LibraryId = "CartAnyItemHasBrandCondition",
+                            Name = "CartAnyItemHasBrandCondition",
                             Properties = new List<PropertyModel>
                             {
-                                this.AddProperty("Brand", "electronics", Constants.DisplayType.String)
+                                this.AddProperty("Brand", "Kickbuds", Constants.DisplayType.String)
                             }
                         }),
                     context);
@@ -841,7 +841,7 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                             Name = "CartItemTargetBrandSubtotalPercentOffAction",
                             Properties = new List<PropertyModel>
                             {
-                                this.AddProperty("TargetBrand", "electronics", Constants.DisplayType.String),
+                                this.AddProperty("TargetBrand", "Kickbuds", Constants.DisplayType.String),
                                 this.AddProperty("SubtotalOperator", Constants.Operators.DecimalGreaterThanEqualToOperator, Constants.DisplayType.BinaryOperatorDec, true),
                                 this.AddProperty("Subtotal", "100", Constants.DisplayType.Decimal),
                                 this.AddProperty("PercentOff", "10", Constants.DisplayType.Decimal)
@@ -849,7 +849,7 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         }),
                     context);
 
-            promotion = await Commander.Pipeline<AddPublicCouponPipeline>().Run(new AddPublicCouponArgument(promotion, "10PCTOFFELECTRONICS"), context);
+            promotion = await Commander.Pipeline<AddPublicCouponPipeline>().Run(new AddPublicCouponArgument(promotion, "10PCTOFFKICKBUDS"), context);
             promotion.SetComponent(new ApprovalComponent(context.GetPolicy<ApprovalStatusPolicy>().Approved));
             await Commander.Pipeline<PersistEntityPipeline>().Run(new PersistEntityArgument(promotion), context);
         }

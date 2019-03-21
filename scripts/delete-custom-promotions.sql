@@ -1,6 +1,7 @@
 DECLARE @CustomPromotions TABLE (Id VARCHAR(MAX), Coupon VARCHAR(MAX))
 INSERT INTO @CustomPromotions VALUES ('Entity-Promotion-Habitat_PromotionBook-_Cart5OffDeliveryShippingOptionPromotion', 'Entity-Coupon-SHIPPINGDISCOUNT')
-INSERT INTO @CustomPromotions VALUES ('Entity-Promotion-Habitat_PromotionBook-_LineBrandAmountDiscountPromotion', 'Entity-Coupon-10OFFELECTRONICS')
+INSERT INTO @CustomPromotions VALUES ('Entity-Promotion-Habitat_PromotionBook-_LineBrandAmountDiscountPromotion', 'Entity-Coupon-10OFFKICKBUDS')
+INSERT INTO @CustomPromotions VALUES ('Entity-Promotion-Habitat_PromotionBook-_LineBrandPercentDiscountPromotion', 'Entity-Coupon-10PCTOFFKICKBUDS')
 INSERT INTO @CustomPromotions VALUES ('Entity-Promotion-Habitat_PromotionBook-_LineCategoryAmountDiscountPromotion', 'Entity-Coupon-10OFFAUDIO')
 INSERT INTO @CustomPromotions VALUES ('Entity-Promotion-Habitat_PromotionBook-_LineCategoryPercentDiscountPromotion', 'Entity-Coupon-10PCTOFFAUDIO')
 INSERT INTO @CustomPromotions VALUES ('Entity-Promotion-Habitat_PromotionBook-_LineQuantityPctOffPromotion', 'Entity-Coupon-RANGEPCTOFF')
