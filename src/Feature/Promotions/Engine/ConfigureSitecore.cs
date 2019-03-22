@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Sitecore.Commerce.Core;
 using Sitecore.Commerce.EntityViews;
-using Sitecore.Commerce.Plugin.Carts;
-using Sitecore.Commerce.Plugin.Catalog;
+using Sitecore.Commerce.Plugin.Promotions;
 using Sitecore.Framework.Configuration;
 using Sitecore.Framework.Pipelines.Definitions.Extensions;
 using Sitecore.Framework.Rules;
@@ -22,6 +21,15 @@ namespace Feature.Promotions.Engine
                     .RegisterAssembly(assembly)
                     .ExcludeType<Sitecore.Commerce.Plugin.Promotions.ItemsCollectionCondition>()
                     ));
+
+            services.Sitecore().Pipelines(config => config
+
+                .ConfigurePipeline<IDoActionPipeline>(pipeline => pipeline
+                    .Replace<DoActionAddQualificationBlock, Pipelines.Blocks.DoActionAddQualificationBlock>()
+                    .Replace<DoActionAddBenefitBlock, Pipelines.Blocks.DoActionAddBenefitBlock>()
+                )
+                
+            );
         }
     }
 }

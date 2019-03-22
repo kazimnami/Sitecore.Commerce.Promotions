@@ -10,6 +10,8 @@ namespace Feature.Carts.Engine
     {
         public IRuleValue<string> TargetCategorySitecoreId { get; set; }
 
+        public IRuleValue<string> CategoryId { get; set; }
+
         public override IEnumerable<CartLineComponent> MatchingLines(IRuleExecutionContext context)
         {
             return TargetCategorySitecoreId.YieldCartLinesWithCategory(context);

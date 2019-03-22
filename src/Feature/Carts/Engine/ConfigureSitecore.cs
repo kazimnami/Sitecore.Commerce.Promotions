@@ -7,6 +7,7 @@ using Sitecore.Framework.Configuration;
 using Sitecore.Framework.Pipelines.Definitions.Extensions;
 using Sitecore.Framework.Rules;
 using System.Reflection;
+using Feature.Carts.Engine.Commands;
 
 namespace Feature.Carts.Engine
 {
@@ -17,6 +18,10 @@ namespace Feature.Carts.Engine
             Assembly assembly = Assembly.GetExecutingAssembly();
             services.RegisterAllPipelineBlocks(assembly);
             services.RegisterAllCommands(assembly);
+
+            services.AddScoped<IApplyFreeGiftDiscountCommand, ApplyFreeGiftDiscountCommand>();
+            services.AddScoped<IApplyFreeGiftEligibilityCommand, ApplyFreeGiftEligibilityCommand>();
+
             services.Sitecore().Rules(rules => rules.Registry(registry => registry.RegisterAssembly(assembly)));
             services.Sitecore().Pipelines(config => config
                 .ConfigurePipeline<IPopulateLineItemPipeline>(pipeline =>
