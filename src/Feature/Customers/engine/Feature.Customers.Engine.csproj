@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
+    <AssemblyName>Feature.Customers.Engine</AssemblyName>
+    <RootNamespace>Feature.Customers.Engine</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +16,15 @@
     <PackageReference Include="Sitecore.Commerce.Core" Version="3.0.*" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Carts" Version="3.0.*" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Catalog" Version="3.0.*" />
+    <PackageReference Include="Sitecore.Commerce.Plugin.Customers" Version="3.0.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Foundation\Carts\Engine\Foundation.Carts.Engine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Actions\" />
   </ItemGroup>
 
 </Project>
