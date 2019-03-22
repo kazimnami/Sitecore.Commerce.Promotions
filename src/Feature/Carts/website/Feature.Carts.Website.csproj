@@ -440,7 +440,6 @@
   <ItemGroup>
     <Content Include="App_Config\Include\z.Feature.Overrides\Feature.Carts.config" />
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

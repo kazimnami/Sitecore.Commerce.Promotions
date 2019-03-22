@@ -5,12 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Model\**" />
-    <EmbeddedResource Remove="Model\**" />
-    <None Remove="Model\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" />
     <PackageReference Include="Sitecore.Commerce.Core" Version="3.0.*" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Carts" Version="3.0.*" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Catalog" Version="3.0.*" />
