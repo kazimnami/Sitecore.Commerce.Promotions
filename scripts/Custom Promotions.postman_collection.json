@@ -1,0 +1,4692 @@
+{
+	"info": {
+		"_postman_id": "bbbbc091-4a27-433a-9c24-c47222ec887c",
+		"name": "Custom Promotions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "_Cart5OffDeliveryShippingOptionPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart01",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart01')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart01')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Fusion Tablet",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart01\",\n    \"itemId\": \"Habitat_Master|6042189|56042189\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Cart Physical Fulfillment ShipToMe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e7c2dea-a9fa-40c6-a49e-d7cfff8da391",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findTotals(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.Carts.Totals';",
+									"}",
+									"",
+									"postman.setGlobalVariable(\"CartGrandTotal\", jsonData.Models.find(findTotals).GrandTotal.Amount);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart01\",\n    \"fulfillment\": {\n        \"@odata.type\": \"Sitecore.Commerce.Plugin.Fulfillment.PhysicalFulfillmentComponent\",\n        \"ShippingParty\": {\n            \"AddressName\": \"name\", \n            \"FirstName\": \"firstname\", \n            \"LastName\":\"lastname\", \n            \"City\": \"city\", \n            \"Address1\": \"123 st\", \n            \"State\": \"ON\", \n            \"Country\": \"CA\", \n            \"ZipPostalCode\":\"1234567\"\n        },\n        \"FulfillmentMethod\": {\n            \"EntityTarget\": \"B146622D-DC86-48A3-B72A-05EE8FFD187A\", \n            \"Name\": \"Ground\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/SetCartFulfillment()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"SetCartFulfillment()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart SHIPPINGDISCOUNT",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart01\",\n    \"couponCode\": \"SHIPPINGDISCOUNT\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart01",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart01')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart01')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_Cart5OffDeliveryShippingOptionPromotion (Split Fulfillments)",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart02",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart02')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart02')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Gift Card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f8d7a52-a0ee-4cc2-bec1-608f1e937e3f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findLineAdded(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.Carts.LineAdded';",
+									"}",
+									"",
+									"postman.setGlobalVariable(\"LineId\", jsonData.Models.find(findLineAdded).LineId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart02\",\n    \"itemId\": \"Habitat_Master|6042986|56042987\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Fusion Tablet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ebcf9f35-10c8-4dbc-b58d-ee8a59c31761",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findLineAdded(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.Carts.LineAdded';",
+									"}",
+									"",
+									"postman.setGlobalVariable(\"LineId2\", jsonData.Models.find(findLineAdded).LineId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart02\",\n    \"itemId\": \"Habitat_Master|6042189|56042189\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Cart Lines Fulfillment Split",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart02\",\n    \"fulfillments\": [\n    \t{\n\t        \"@odata.type\": \"Sitecore.Commerce.Plugin.Fulfillment.PhysicalFulfillmentComponent\",\n\t        \"FulfillmentMethod\": {\"EntityTarget\": \"B146622D-DC86-48A3-B72A-05EE8FFD187A\", \"Name\": \"Ground\"},\n\t        \"ShippingParty\": {\"AddressName\": \"name\", \"FirstName\": \"firstname\", \"LastName\":\"lastname\", \"City\": \"city\", \"Address1\": \"123 st\", \"State\": \"Ontario\", \"StateCode\": \"ON\", \"Country\": \"Canada\", \"CountryCode\": \"CA\", \"ZipPostalCode\":\"postalcode\"},\n\t        \"LineId\": \"{{LineId2}}\"\n    \t}\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/SetCartLinesFulfillment()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"SetCartLinesFulfillment()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart SHIPPINGDISCOUNT",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart02\",\n    \"couponCode\": \"SHIPPINGDISCOUNT\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart02",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart02')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart02')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineBrandAmountDiscountPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart03",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart03')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart03')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Kickbuds Earbuds",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart03\",\n    \"itemId\": \"Habitat_Master|6042059|56042059\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart 10OFFKICKBUDS",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart03\",\n    \"couponCode\": \"10OFFKICKBUDS\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart03",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart03')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart03')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineBrandPercentDiscountPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart04",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart04')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart04')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Kickbuds Earbuds",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart04\",\n    \"itemId\": \"Habitat_Master|6042059|56042059\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart 10PCTOFFKICKBUDS",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart04\",\n    \"couponCode\": \"10PCTOFFKICKBUDS\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart04",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart04')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart04')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineCategoryAmountDiscountPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart05",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart05')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart05')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Athletica Earbuds",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart05\",\n    \"itemId\": \"Habitat_Master|6042065|56042065\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart 10OFFAUDIO",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart05\",\n    \"couponCode\": \"10OFFAUDIO\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart05",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart05')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart05')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineCategoryPercentDiscountPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart06",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart06')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart06')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Athletica Earbuds",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart06\",\n    \"itemId\": \"Habitat_Master|6042065|56042065\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart 10PCTOFFAUDIO",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart06\",\n    \"couponCode\": \"10PCTOFFAUDIO\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart06",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart06')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart06')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineQuantityPctOffPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart07",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart07')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart07')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line FM-X Wireless Qty 2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart07\",\n    \"itemId\": \"Habitat_Master|6042060|56042060\",\n    \"quantity\": 2\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart RANGEPCTOFF",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart07\",\n    \"couponCode\": \"RANGEPCTOFF\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart07 (No Discount)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart07')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart07')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line FM-X Wireless Qty 2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart07\",\n    \"itemId\": \"Habitat_Master|6042060|56042060\",\n    \"quantity\": 2\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart07 (5% Discount)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart07')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart07')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line FM-X Wireless Qty 2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart07\",\n    \"itemId\": \"Habitat_Master|6042060|56042060\",\n    \"quantity\": 2\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart07 (10% Discount)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart07')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart07')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line FM-X Wireless Qty 2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart07\",\n    \"itemId\": \"Habitat_Master|6042060|56042060\",\n    \"quantity\": 2\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart07 (15% Discount)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart07')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart07')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineTagAmountDiscountPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart08",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart08')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart08')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Kickbuds Earbuds",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart08\",\n    \"itemId\": \"Habitat_Master|6042059|56042059\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart 10OFFEARBUDS",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart08\",\n    \"couponCode\": \"10OFFEARBUDS\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart08",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart08')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart08')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineTagPercentDiscountPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart09",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart09')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart09')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Kickbuds Earbuds",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart09\",\n    \"itemId\": \"Habitat_Master|6042059|56042059\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart 10PCTOFFEARDBUDS",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart09\",\n    \"couponCode\": \"10PCTOFFEARDBUDS\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart09",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart09')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart09')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineXQuantityForPricePromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart10",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart10')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart10')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Athletica Earbuds",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart10\",\n    \"itemId\": \"Habitat_Master|6042062|56042062\",\n    \"quantity\": 1\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart 3FOR50",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart10\",\n    \"couponCode\": \"3FOR50\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart10 (No Discount)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart10')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart10')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Athletica Earbuds Qty 2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart10\",\n    \"itemId\": \"Habitat_Master|6042062|56042062\",\n    \"quantity\": 2\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart10 (Discount Applied)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart10')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart10')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "_LineXQuantityForYQuantityPromotion",
+			"item": [
+				{
+					"name": "GetToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"SitecoreIdToken\", \"Bearer \" + jsonData.access_token);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "{{SitecoreIdServerPassword}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{SitecoreIdServerUserName}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "postman-api",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "openid EngineAPI postman_api",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SitecoreIdServerHost}}/connect/token",
+							"host": [
+								"{{SitecoreIdServerHost}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "Get Token from Sitecore Identity Server"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Cart Cart11",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart11')",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart11')"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Skinnybuds Headphones Qty 2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart11\",\n    \"itemId\": \"Habitat_Master|6042061|56042061\",\n    \"quantity\": 2\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Coupon To Cart 4FOR3",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart11\",\n    \"couponCode\": \"4FOR3\"\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCouponToCart()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart11 (No Discount)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart11')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart11')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Cart Line Skinnybuds Headphones Qty 2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\":\"Cart11\",\n    \"itemId\": \"Habitat_Master|6042061|56042061\",\n    \"quantity\": 2\n}\n"
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCartLine()",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"AddCartLine()"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart Cart11 (Discount Applied)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3b6a6ba-34b0-4093-8288-ae857d135e2e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"function findPaymentId(model) {",
+									"    var type = '@odata.type';",
+									"    return model[type] === '#Sitecore.Commerce.Plugin.GiftCards.GiftCardPaymentComponent';",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "ShopName",
+								"value": "{{ShopName}}"
+							},
+							{
+								"key": "ShopperId",
+								"value": "{{ShopperId}}"
+							},
+							{
+								"key": "Language",
+								"value": "{{Language}}"
+							},
+							{
+								"key": "Currency",
+								"value": "{{Currency}}"
+							},
+							{
+								"key": "Environment",
+								"value": "{{Environment}}"
+							},
+							{
+								"key": "GeoLocation",
+								"value": "{{GeoLocation}}"
+							},
+							{
+								"key": "CustomerId",
+								"value": "{{CustomerId}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{SitecoreIdToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ServiceHost}}/{{ShopsApi}}/Carts('Cart11')?$expand=Lines($expand=CartLineComponents($expand=ChildComponents)),Components",
+							"host": [
+								"{{ServiceHost}}"
+							],
+							"path": [
+								"{{ShopsApi}}",
+								"Carts('Cart11')"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Lines($expand=CartLineComponents($expand=ChildComponents)),Components"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Initialise Sample Promotions",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{SitecoreIdToken}}"
+					},
+					{
+						"key": "Environment",
+						"value": "{{Environment}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{OpsApiHost}}/{{OpsApi}}/InitialiseSamplePromotions()",
+					"host": [
+						"{{OpsApiHost}}"
+					],
+					"path": [
+						"{{OpsApi}}",
+						"InitialiseSamplePromotions()"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
