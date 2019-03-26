@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Feature.Carts.Engine.Commands;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Framework.Rules;
@@ -10,8 +9,7 @@ namespace Feature.Carts.Engine.Actions
     [EntityIdentifier(CartsConstants.Actions.CartItemTargetIdFreeGiftAction)]
     public class CartItemTargetIdFreeGiftAction : CartTargetItemId, ICartLineAction
     {
-        // Disabled for now as I was unable to get the IRuleValue<bool> modification to work.
-        //public IRuleValue<bool> AutoAddToCart { get; set; }
+        public IRuleValue<bool> AutoAddToCart { get; set; }
 
         protected const int QUANTITY_TO_ADD = 1;
 
@@ -41,10 +39,9 @@ namespace Feature.Carts.Engine.Actions
 
             var matchingLines = this.MatchingLines(context);
 
-            //if (!matchingLines.Any() && AutoAddToCart.Yield(context))
-            if (!matchingLines.Any())
+            if (!matchingLines.Any() && AutoAddToCart.Yield(context))
             {
-                await AddCartLineCommand.Process(commerceContext, cart, new CartLineComponent()
+                await AddCartLineCommand.Process(commerceContext, cart, new CartLineComponent
                 {
                     ItemId = this.TargetItemId.Yield(context),
                     Quantity = QUANTITY_TO_ADD
