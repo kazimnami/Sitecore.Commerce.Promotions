@@ -180,13 +180,15 @@ namespace Feature.Carts.Engine.Tests
         public class Functional : CartItemTargetTagFreeGiftAction
         {
             public Functional() : base(Substitute.For<IApplyFreeGiftDiscountCommand>(),
-                Substitute.For<IApplyFreeGiftEligibilityCommand>())
+                Substitute.For<IApplyFreeGiftEligibilityCommand>(),
+                Substitute.For<IApplyFreeGiftAutoRemoveCommand>())
             {
             }
 
             [Theory, InlineAutoNSubstituteData("freegift")]
             public void Execute_HasMatchingLines_ShouldApplyCartLineAdjustment(
                 string targetTag,
+                bool autoRemove,
                 Cart cart,
                 CartProductComponent cartProductComponent,
                 CartTotals cartTotals,
@@ -209,6 +211,9 @@ namespace Feature.Carts.Engine.Tests
 
                 action.TargetTag = Substitute.For<IRuleValue<string>>();
                 action.TargetTag.Yield(context).ReturnsForAnyArgs(targetTag);
+
+                action.AutoRemove = Substitute.For<IRuleValue<bool>>();
+                action.AutoRemove.Yield(context).ReturnsForAnyArgs(autoRemove);
 
                 context.Fact(Arg.Any<IFactIdentifier>()).Returns(commerceContext);
 

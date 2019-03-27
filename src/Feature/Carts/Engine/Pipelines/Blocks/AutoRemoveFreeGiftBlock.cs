@@ -1,10 +1,6 @@
 ﻿using Sitecore.Commerce.Core;
-using Sitecore.Commerce.EntityViews;
-using Sitecore.Commerce.Plugin.Promotions;
 using Sitecore.Framework.Conditions;
 using Sitecore.Framework.Pipelines;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
