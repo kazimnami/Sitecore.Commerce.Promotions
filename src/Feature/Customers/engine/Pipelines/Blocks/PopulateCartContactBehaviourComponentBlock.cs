@@ -31,7 +31,7 @@ namespace Feature.Customers.Engine
             }
             if (commerceContext.Headers["CampaignId"].Any<string>())
             {
-                component.AddCampaignId(commerceContext.Headers["CampaignId"].ToString());
+                component.AddCampaignId(commerceContext.Headers["CampaignId"].ToString().ToLower());
             }
             if (commerceContext.Headers["Goals"].Any<string>())
             {

@@ -19,9 +19,9 @@ namespace Feature.Customers.Engine
             services.RegisterAllCommands(assembly);
             services.Sitecore().Rules(rules => rules.Registry(registry => registry.RegisterAssembly(assembly)));
             services.Sitecore().Pipelines(config => config
-                .ConfigurePipeline<IGetCartPipeline>(pipeline =>
+                .ConfigurePipeline<ICalculateCartLinesPipeline>(pipeline =>
                 {
-                    pipeline.Add<PopulateCartContactBehaviourComponentBlock>().After<GetCartBlock>();
+                    pipeline.Add<PopulateCartContactBehaviourComponentBlock>().After<ClearCartLinesBlock>();
                 }, order: 2000)
             );
         }

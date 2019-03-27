@@ -20,7 +20,7 @@ namespace Feature.Customers.Engine
                 return false;
 
             var component = cart.GetComponent<CartContactBehaviourComponent>();
-            return component.CampaignIds.Contains(targetCampaignId);
+            return component.CampaignIds.Contains(targetCampaignId.ToLower());
         }
     }
 }
