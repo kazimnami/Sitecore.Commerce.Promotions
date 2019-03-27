@@ -10,15 +10,19 @@ namespace Feature.Carts.Engine.Actions
     public class CartItemTargetTagFreeGiftAction : ICartLineAction
     {
         public IRuleValue<string> TargetTag { get; set; }
+        public IRuleValue<bool> AutoRemove { get; set; }
 
         protected readonly IApplyFreeGiftDiscountCommand ApplyFreeGiftDiscountCommand;
         protected readonly IApplyFreeGiftEligibilityCommand ApplyFreeGiftEligibilityCommand;
+        protected readonly IApplyFreeGiftAutoRemoveCommand ApplyFreeGiftAutoRemoveCommand;
 
         public CartItemTargetTagFreeGiftAction(IApplyFreeGiftDiscountCommand applyFreeGiftDiscountCommand, 
-            IApplyFreeGiftEligibilityCommand applyFreeGiftEligibilityCommand)
+            IApplyFreeGiftEligibilityCommand applyFreeGiftEligibilityCommand,
+            IApplyFreeGiftAutoRemoveCommand applyFreeGiftAutoRemoveCommand)
         {
             ApplyFreeGiftDiscountCommand = applyFreeGiftDiscountCommand;
             ApplyFreeGiftEligibilityCommand = applyFreeGiftEligibilityCommand;
+            ApplyFreeGiftAutoRemoveCommand = applyFreeGiftAutoRemoveCommand;
         }
 
         public void Execute(IRuleExecutionContext context)
@@ -37,6 +41,7 @@ namespace Feature.Carts.Engine.Actions
             foreach (var matchingLine in matchingLines)
             {
                 ApplyFreeGiftDiscountCommand.Process(commerceContext, matchingLine, this.GetType().Name);
+                ApplyFreeGiftAutoRemoveCommand.Process(commerceContext, matchingLine, AutoRemove.Yield(context));
             }
         }
     }

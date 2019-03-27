@@ -10,19 +10,23 @@ namespace Feature.Carts.Engine.Actions
     public class CartItemTargetIdFreeGiftAction : CartTargetItemId, ICartLineAction
     {
         public IRuleValue<bool> AutoAddToCart { get; set; }
+        public IRuleValue<bool> AutoRemove { get; set; }
 
         protected const int QUANTITY_TO_ADD = 1;
 
         protected readonly IApplyFreeGiftDiscountCommand ApplyFreeGiftDiscountCommand;
         protected readonly IApplyFreeGiftEligibilityCommand ApplyFreeGiftEligibilityCommand;
+        protected readonly IApplyFreeGiftAutoRemoveCommand ApplyFreeGiftAutoRemoveCommand;
         protected readonly AddCartLineCommand AddCartLineCommand;
 
         public CartItemTargetIdFreeGiftAction(IApplyFreeGiftDiscountCommand applyFreeGiftDiscountCommand, 
-            IApplyFreeGiftEligibilityCommand applyFreeGiftEligibilityCommand, 
+            IApplyFreeGiftEligibilityCommand applyFreeGiftEligibilityCommand,
+            IApplyFreeGiftAutoRemoveCommand applyFreeGiftAutoRemoveCommand,
             AddCartLineCommand addCartLineCommand)
         {
             ApplyFreeGiftDiscountCommand = applyFreeGiftDiscountCommand;
             ApplyFreeGiftEligibilityCommand = applyFreeGiftEligibilityCommand;
+            ApplyFreeGiftAutoRemoveCommand = applyFreeGiftAutoRemoveCommand;
             AddCartLineCommand = addCartLineCommand;
         }
 
@@ -51,6 +55,7 @@ namespace Feature.Carts.Engine.Actions
             foreach (var matchingLine in matchingLines)
             {
                 ApplyFreeGiftDiscountCommand.Process(commerceContext, matchingLine, this.GetType().Name);
+                ApplyFreeGiftAutoRemoveCommand.Process(commerceContext, matchingLine, AutoRemove.Yield(context));
             }
         }
     }

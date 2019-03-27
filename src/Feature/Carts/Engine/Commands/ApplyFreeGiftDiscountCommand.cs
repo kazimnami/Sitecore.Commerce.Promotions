@@ -57,7 +57,7 @@ namespace Feature.Carts.Engine.Commands
                     Adjustment = new Money(commerceContext.CurrentCurrency(), discountAmount),
                     AdjustmentType = discountAdjustmentType,
                     IsTaxable = false,
-                    AwardingBlock = awardingAction
+                    AwardingBlock = propertiesModel?.GetPropertyValue("PromotionId") as string
                 });
 
                 totals.Lines[cartLineComponent.Id].SubTotal.Amount = totals.Lines[cartLineComponent.Id].SubTotal.Amount + discountAmount;

@@ -181,6 +181,7 @@ namespace Feature.Carts.Engine.Tests
         {
             public Functional() : base(Substitute.For<IApplyFreeGiftDiscountCommand>(),
                 Substitute.For<IApplyFreeGiftEligibilityCommand>(),
+                Substitute.For<IApplyFreeGiftAutoRemoveCommand>(),
                 Substitute.For<AddCartLineCommand>(Substitute.For<IFindEntityPipeline>(), Substitute.For<IAddCartLinePipeline>(), Substitute.For<IServiceProvider>()))
             {
             }
