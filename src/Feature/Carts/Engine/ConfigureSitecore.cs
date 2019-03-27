@@ -21,6 +21,8 @@ namespace Feature.Carts.Engine
 
             services.AddScoped<IApplyFreeGiftDiscountCommand, ApplyFreeGiftDiscountCommand>();
             services.AddScoped<IApplyFreeGiftEligibilityCommand, ApplyFreeGiftEligibilityCommand>();
+            services.AddScoped<IApplyFreeGiftAutoRemoveCommand, ApplyFreeGiftAutoRemoveCommand>();
+
 
             services.Sitecore().Rules(rules => rules.Registry(registry => registry.RegisterAssembly(assembly)));
             services.Sitecore().Pipelines(config => config
@@ -32,6 +34,10 @@ namespace Feature.Carts.Engine
                 {
                     pipeline.Add<Feature.Carts.Engine.DoActionSelectBenefitBlock>().After<Sitecore.Commerce.Plugin.Catalog.DoActionSelectBenefitBlock>();
                 }, order: 2000)
+                .ConfigurePipeline<IRemoveCartLinePipeline>(pipeline =>
+                {
+                    pipeline.Add<AutoRemoveFreeGiftBlock>().After<RemoveCartLineBlock>();
+                })
             );
         }
     }

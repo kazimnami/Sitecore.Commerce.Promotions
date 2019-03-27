@@ -1,13 +1,14 @@
 ﻿using AutoFixture.Xunit2;
-using System.Diagnostics.CodeAnalysis;
 using Xunit;
 using Xunit.Sdk;
 
 namespace Feature.Carts.Engine.Tests
 {
+    using System.Collections.Generic;
+
     internal class InlineAutoNSubstituteDataAttribute : CompositeDataAttribute
     {
-        internal InlineAutoNSubstituteDataAttribute(params object[] values)
+        public InlineAutoNSubstituteDataAttribute(params object[] values)
             : base(new DataAttribute[] {
             new InlineDataAttribute(values), new AutoNSubstituteDataAttribute() })
         {
