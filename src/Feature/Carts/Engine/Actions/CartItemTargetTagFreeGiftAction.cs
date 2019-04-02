@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using Feature.Carts.Engine.Commands;
+﻿using Feature.Carts.Engine.Commands;
+using Sitecore.Commerce.Core;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Framework.Rules;
-using Sitecore.Commerce.Core;
+using System.Linq;
 
 namespace Feature.Carts.Engine.Actions
 {
@@ -12,17 +12,11 @@ namespace Feature.Carts.Engine.Actions
         public IRuleValue<string> TargetTag { get; set; }
         public IRuleValue<bool> AutoRemove { get; set; }
 
-        protected readonly IApplyFreeGiftDiscountCommand ApplyFreeGiftDiscountCommand;
-        protected readonly IApplyFreeGiftEligibilityCommand ApplyFreeGiftEligibilityCommand;
-        protected readonly IApplyFreeGiftAutoRemoveCommand ApplyFreeGiftAutoRemoveCommand;
+        private readonly CommerceCommander Commander;
 
-        public CartItemTargetTagFreeGiftAction(IApplyFreeGiftDiscountCommand applyFreeGiftDiscountCommand, 
-            IApplyFreeGiftEligibilityCommand applyFreeGiftEligibilityCommand,
-            IApplyFreeGiftAutoRemoveCommand applyFreeGiftAutoRemoveCommand)
+        public CartItemTargetTagFreeGiftAction(CommerceCommander commerceCommander)
         {
-            ApplyFreeGiftDiscountCommand = applyFreeGiftDiscountCommand;
-            ApplyFreeGiftEligibilityCommand = applyFreeGiftEligibilityCommand;
-            ApplyFreeGiftAutoRemoveCommand = applyFreeGiftAutoRemoveCommand;
+            Commander = commerceCommander;
         }
 
         public void Execute(IRuleExecutionContext context)
@@ -34,14 +28,14 @@ namespace Feature.Carts.Engine.Actions
             if (cart == null || !cart.Lines.Any() || totals == null || !totals.Lines.Any())
                 return;
 
-            ApplyFreeGiftEligibilityCommand.Process(commerceContext, cart, this.GetType().Name);
+            Commander.Command<ApplyFreeGiftEligibilityCommand>().Process(commerceContext, cart, GetType().Name);
 
             var matchingLines = TargetTag.YieldCartLinesWithTag(context);
 
             foreach (var matchingLine in matchingLines)
             {
-                ApplyFreeGiftDiscountCommand.Process(commerceContext, matchingLine, this.GetType().Name);
-                ApplyFreeGiftAutoRemoveCommand.Process(commerceContext, matchingLine, AutoRemove.Yield(context));
+                Commander.Command<ApplyFreeGiftDiscountCommand>().Process(commerceContext, matchingLine, GetType().Name);
+                Commander.Command<ApplyFreeGiftAutoRemoveCommand>().Process(commerceContext, matchingLine, AutoRemove.Yield(context));
             }
         }
     }

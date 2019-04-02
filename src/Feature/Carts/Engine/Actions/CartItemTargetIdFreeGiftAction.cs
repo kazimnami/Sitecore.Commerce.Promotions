@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using Feature.Carts.Engine.Commands;
+﻿using Feature.Carts.Engine.Commands;
+using Sitecore.Commerce.Core;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Framework.Rules;
-using Sitecore.Commerce.Core;
+using System.Linq;
 
 namespace Feature.Carts.Engine.Actions
 {
@@ -14,20 +14,11 @@ namespace Feature.Carts.Engine.Actions
 
         protected const int QUANTITY_TO_ADD = 1;
 
-        protected readonly IApplyFreeGiftDiscountCommand ApplyFreeGiftDiscountCommand;
-        protected readonly IApplyFreeGiftEligibilityCommand ApplyFreeGiftEligibilityCommand;
-        protected readonly IApplyFreeGiftAutoRemoveCommand ApplyFreeGiftAutoRemoveCommand;
-        protected readonly AddCartLineCommand AddCartLineCommand;
+        private readonly CommerceCommander Commander;
 
-        public CartItemTargetIdFreeGiftAction(IApplyFreeGiftDiscountCommand applyFreeGiftDiscountCommand, 
-            IApplyFreeGiftEligibilityCommand applyFreeGiftEligibilityCommand,
-            IApplyFreeGiftAutoRemoveCommand applyFreeGiftAutoRemoveCommand,
-            AddCartLineCommand addCartLineCommand)
+        public CartItemTargetIdFreeGiftAction(CommerceCommander commerceCommander)
         {
-            ApplyFreeGiftDiscountCommand = applyFreeGiftDiscountCommand;
-            ApplyFreeGiftEligibilityCommand = applyFreeGiftEligibilityCommand;
-            ApplyFreeGiftAutoRemoveCommand = applyFreeGiftAutoRemoveCommand;
-            AddCartLineCommand = addCartLineCommand;
+            Commander = commerceCommander;
         }
 
         public async void Execute(IRuleExecutionContext context)
@@ -39,23 +30,23 @@ namespace Feature.Carts.Engine.Actions
             if (cart == null || !cart.Lines.Any() || totals == null || !totals.Lines.Any())
                 return;
 
-            ApplyFreeGiftEligibilityCommand.Process(commerceContext, cart, this.GetType().Name);
+            Commander.Command<ApplyFreeGiftEligibilityCommand>().Process(commerceContext, cart, GetType().Name);
 
-            var matchingLines = this.MatchingLines(context);
+            var matchingLines = MatchingLines(context);
 
             if (!matchingLines.Any() && AutoAddToCart.Yield(context))
             {
-                await AddCartLineCommand.Process(commerceContext, cart, new CartLineComponent
+                await Commander.Command<AddCartLineCommand>().Process(commerceContext, cart, new CartLineComponent
                 {
-                    ItemId = this.TargetItemId.Yield(context),
+                    ItemId = TargetItemId.Yield(context),
                     Quantity = QUANTITY_TO_ADD
                 });
             }
 
             foreach (var matchingLine in matchingLines)
             {
-                ApplyFreeGiftDiscountCommand.Process(commerceContext, matchingLine, this.GetType().Name);
-                ApplyFreeGiftAutoRemoveCommand.Process(commerceContext, matchingLine, AutoRemove.Yield(context));
+                Commander.Command<ApplyFreeGiftDiscountCommand>().Process(commerceContext, matchingLine, GetType().Name);
+                Commander.Command<ApplyFreeGiftAutoRemoveCommand>().Process(commerceContext, matchingLine, AutoRemove.Yield(context));
             }
         }
     }

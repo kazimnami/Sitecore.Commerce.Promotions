@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Feature.Carts.Engine.Actions;
+﻿using Feature.Carts.Engine.Actions;
 using Feature.Carts.Engine.Commands;
 using FluentAssertions;
 using NSubstitute;
 using Sitecore.Commerce.Core;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Framework.Rules;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Feature.Carts.Engine.Tests
@@ -29,8 +29,8 @@ namespace Feature.Carts.Engine.Tests
                 cart.Adjustments.Clear();
                 cart.Lines.ForEach(l => l.Adjustments.Clear());
                 action.TargetItemId = targetItemId;
-                
-                context.Fact(Arg.Any<IFactIdentifier>()).Returns((CommerceContext) null);
+
+                context.Fact(Arg.Any<IFactIdentifier>()).Returns((CommerceContext)null);
 
                 /**********************************************
                  * Act
@@ -123,7 +123,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
 
                 action.TargetItemId = targetItemId;
-                
+
                 context.Fact(Arg.Any<IFactIdentifier>()).Returns(commerceContext);
 
                 /**********************************************
@@ -159,7 +159,7 @@ namespace Feature.Carts.Engine.Tests
                 commerceContext.AddObject(cart);
 
                 action.TargetItemId = targetItemId;
-                
+
                 context.Fact(Arg.Any<IFactIdentifier>()).Returns(commerceContext);
 
                 /**********************************************
@@ -176,15 +176,8 @@ namespace Feature.Carts.Engine.Tests
             }
         }
 
-        public class Functional : CartItemTargetIdFreeGiftAction
+        public class Functional
         {
-            public Functional() : base(Substitute.For<IApplyFreeGiftDiscountCommand>(),
-                Substitute.For<IApplyFreeGiftEligibilityCommand>(),
-                Substitute.For<IApplyFreeGiftAutoRemoveCommand>(),
-                Substitute.For<AddCartLineCommand>(Substitute.For<IFindEntityPipeline>(), Substitute.For<IAddCartLinePipeline>(), Substitute.For<IServiceProvider>()))
-            {
-            }
-
             [Theory, InlineAutoNSubstituteData("Habitat_Master|6042175|56042175")]
             public void Execute_HasMatchingLines_ShouldApplyCartLineAdjustment(
                 string targetItemId,
@@ -193,12 +186,17 @@ namespace Feature.Carts.Engine.Tests
                 Cart cart,
                 CartTotals cartTotals,
                 CommerceContext commerceContext,
-                IRuleExecutionContext context)
+                IRuleExecutionContext context
+                )
             {
                 /**********************************************
                  * Arrange
                  **********************************************/
-                var action = this;
+                ApplyFreeGiftDiscountCommand discountCommand;
+                ApplyFreeGiftEligibilityCommand eligibilityCommand;
+                ApplyFreeGiftAutoRemoveCommand autoRemoveCommand;
+                AddCartLineCommand addCartLineCommand;
+                CartItemTargetIdFreeGiftAction action = BuildAction(out discountCommand, out eligibilityCommand, out autoRemoveCommand, out addCartLineCommand);
 
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
@@ -227,9 +225,9 @@ namespace Feature.Carts.Engine.Tests
                  * Assert
                  **********************************************/
                 executeAction.Should().NotThrow<Exception>();
-                ApplyFreeGiftEligibilityCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<string>());
-                ApplyFreeGiftDiscountCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
-                ApplyFreeGiftAutoRemoveCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), autoRemove);
+                eligibilityCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<string>());
+                discountCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
+                autoRemoveCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), autoRemove);
             }
 
             [Theory, InlineAutoNSubstituteData("Habitat_Master|6042175|56042175")]
@@ -245,7 +243,11 @@ namespace Feature.Carts.Engine.Tests
                 /**********************************************
                  * Arrange
                  **********************************************/
-                var action = this;
+                ApplyFreeGiftDiscountCommand discountCommand;
+                ApplyFreeGiftEligibilityCommand eligibilityCommand;
+                ApplyFreeGiftAutoRemoveCommand autoRemoveCommand;
+                AddCartLineCommand addCartLineCommand;
+                CartItemTargetIdFreeGiftAction action = BuildAction(out discountCommand, out eligibilityCommand, out autoRemoveCommand, out addCartLineCommand);
 
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
@@ -273,8 +275,8 @@ namespace Feature.Carts.Engine.Tests
                  * Assert
                  **********************************************/
                 executeAction.Should().NotThrow<Exception>();
-                ApplyFreeGiftDiscountCommand.DidNotReceive().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
-                ApplyFreeGiftAutoRemoveCommand.DidNotReceive().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), autoRemove);
+                discountCommand.DidNotReceive().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
+                autoRemoveCommand.DidNotReceive().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), autoRemove);
             }
 
             [Theory, InlineAutoNSubstituteData("Habitat_Master|6042175|56042175", true)]
@@ -290,7 +292,11 @@ namespace Feature.Carts.Engine.Tests
                 /**********************************************
                  * Arrange
                  **********************************************/
-                var action = this;
+                ApplyFreeGiftDiscountCommand discountCommand;
+                ApplyFreeGiftEligibilityCommand eligibilityCommand;
+                ApplyFreeGiftAutoRemoveCommand autoRemoveCommand;
+                AddCartLineCommand addCartLineCommand;
+                CartItemTargetIdFreeGiftAction action = BuildAction(out discountCommand, out eligibilityCommand, out autoRemoveCommand, out addCartLineCommand);
 
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
@@ -309,7 +315,7 @@ namespace Feature.Carts.Engine.Tests
 
                 context.Fact(Arg.Any<IFactIdentifier>()).Returns(commerceContext);
 
-                AddCartLineCommand
+                addCartLineCommand
                     .WhenForAnyArgs(x => x.Process(Arg.Any<CommerceContext>(), cart, Arg.Any<CartLineComponent>()))
                     .Do(x => cart.Lines[0].ItemId = targetItemId);
 
@@ -322,10 +328,26 @@ namespace Feature.Carts.Engine.Tests
                  * Assert
                  **********************************************/
                 executeAction.Should().NotThrow<Exception>();
-                await AddCartLineCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<CartLineComponent>());
-                ApplyFreeGiftEligibilityCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<string>());
-                ApplyFreeGiftDiscountCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
-                ApplyFreeGiftAutoRemoveCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), autoRemove);
+                await addCartLineCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<CartLineComponent>());
+                eligibilityCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<string>());
+                discountCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
+                autoRemoveCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), autoRemove);
+            }
+
+            private static CartItemTargetIdFreeGiftAction BuildAction(out ApplyFreeGiftDiscountCommand discountCommand, out ApplyFreeGiftEligibilityCommand eligibilityCommand, out ApplyFreeGiftAutoRemoveCommand autoRemoveCommand, out AddCartLineCommand addCartLineCommand)
+            {
+                discountCommand = Substitute.For<ApplyFreeGiftDiscountCommand>(Substitute.For<IServiceProvider>());
+                eligibilityCommand = Substitute.For<ApplyFreeGiftEligibilityCommand>(Substitute.For<IServiceProvider>());
+                autoRemoveCommand = Substitute.For<ApplyFreeGiftAutoRemoveCommand>();
+                addCartLineCommand = Substitute.For<AddCartLineCommand>(Substitute.For<IFindEntityPipeline>(), Substitute.For<IAddCartLinePipeline>(), Substitute.For<IServiceProvider>());
+
+                var commerceCommander = Substitute.For<CommerceCommander>(Substitute.For<IServiceProvider>());
+                commerceCommander.Command<ApplyFreeGiftDiscountCommand>().Returns(discountCommand);
+                commerceCommander.Command<ApplyFreeGiftEligibilityCommand>().Returns(eligibilityCommand);
+                commerceCommander.Command<ApplyFreeGiftAutoRemoveCommand>().Returns(autoRemoveCommand);
+                commerceCommander.Command<AddCartLineCommand>().Returns(addCartLineCommand);
+
+                return new CartItemTargetIdFreeGiftAction(commerceCommander);
             }
         }
     }

@@ -19,11 +19,6 @@ namespace Feature.Carts.Engine
             services.RegisterAllPipelineBlocks(assembly);
             services.RegisterAllCommands(assembly);
 
-            services.AddScoped<IApplyFreeGiftDiscountCommand, ApplyFreeGiftDiscountCommand>();
-            services.AddScoped<IApplyFreeGiftEligibilityCommand, ApplyFreeGiftEligibilityCommand>();
-            services.AddScoped<IApplyFreeGiftAutoRemoveCommand, ApplyFreeGiftAutoRemoveCommand>();
-
-
             services.Sitecore().Rules(rules => rules.Registry(registry => registry.RegisterAssembly(assembly)));
             services.Sitecore().Pipelines(config => config
                 .ConfigurePipeline<IPopulateLineItemPipeline>(pipeline =>
