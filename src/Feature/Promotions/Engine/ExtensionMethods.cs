@@ -17,11 +17,13 @@ namespace Feature.Promotions.Engine
             if (cart == null || !cart.Lines.Any())
                 return Enumerable.Empty<CartLineComponent>();
 
+            var items = new List<PromotionItemModel>();
             var propertiesModel = commerceContext.GetObject<PropertiesModel>();
-            if (!(propertiesModel?.GetPropertyValue("PromotionItems") is PromotionItemsComponent))
-                return Enumerable.Empty<CartLineComponent>();
+            if ((propertiesModel?.GetPropertyValue("PromotionItems") is PromotionItemsComponent))
+            {
+                items = ((PromotionItemsComponent)propertiesModel.GetPropertyValue("PromotionItems")).Items;
+            }
 
-            var items = ((PromotionItemsComponent)propertiesModel.GetPropertyValue("PromotionItems")).Items;
             var promotionIncludedItems = items.Where(i => !i.Excluded).Select(i => i.ItemId).ToList();
             var promotionExcludedItems = items.Where(i => i.Excluded).Select(i => i.ItemId).ToList();
             var list = cart.Lines.Select(l => l.ItemId).ToList();
