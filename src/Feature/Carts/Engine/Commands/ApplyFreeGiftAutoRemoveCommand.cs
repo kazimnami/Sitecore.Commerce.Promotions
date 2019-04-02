@@ -5,22 +5,20 @@
     using Sitecore.Commerce.Core.Commands;
     using Sitecore.Commerce.Plugin.Carts;
 
-    public class ApplyFreeGiftAutoRemoveCommand : CommerceCommand, IApplyFreeGiftAutoRemoveCommand
+    public class ApplyFreeGiftAutoRemoveCommand : CommerceCommand
     {
-        public void Process(CommerceContext commerceContext, CartLineComponent cartLineComponent, bool autoRemove)
+        public virtual void Process(CommerceContext commerceContext, CartLineComponent cartLineComponent, bool autoRemove)
         {
-            using (CommandActivity.Start(commerceContext, this))
+
+            if (!autoRemove && cartLineComponent.UnitListPrice.Amount != 0.0m)
             {
-                if (!autoRemove || cartLineComponent.UnitListPrice.Amount > 0.0m)
-                {
-                    return;
-                }
-
-                var propertiesModel = commerceContext.GetObject<PropertiesModel>();
-                var freeGiftEligibilityComponent = cartLineComponent.GetComponent<FreeGiftAutoRemoveComponent>();
-
-                freeGiftEligibilityComponent.PromotionId = propertiesModel?.GetPropertyValue("PromotionId") as string;
+                return;
             }
+
+            var propertiesModel = commerceContext.GetObject<PropertiesModel>();
+            var freeGiftEligibilityComponent = cartLineComponent.GetComponent<FreeGiftAutoRemoveComponent>();
+
+            freeGiftEligibilityComponent.PromotionId = propertiesModel?.GetPropertyValue("PromotionId") as string;
         }
     }
 }

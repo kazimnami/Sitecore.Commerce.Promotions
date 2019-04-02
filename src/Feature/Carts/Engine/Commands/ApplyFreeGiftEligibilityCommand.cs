@@ -19,7 +19,7 @@ namespace Feature.Carts.Engine.Commands
     /// <summary>
     /// Defines the ApplyFreeGiftEligibilityCommandCommand command.
     /// </summary>
-    public class ApplyFreeGiftEligibilityCommand : CommerceCommand, IApplyFreeGiftEligibilityCommand
+    public class ApplyFreeGiftEligibilityCommand : CommerceCommand
     {
         /// <inheritdoc />
         /// <summary>
@@ -42,7 +42,7 @@ namespace Feature.Carts.Engine.Commands
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        public void Process(CommerceContext commerceContext, [NotNull] Cart cart, [NotNull] string awardingAction)
+        public virtual void Process(CommerceContext commerceContext, [NotNull] Cart cart, [NotNull] string awardingAction)
         {
             using (CommandActivity.Start(commerceContext, this))
             {

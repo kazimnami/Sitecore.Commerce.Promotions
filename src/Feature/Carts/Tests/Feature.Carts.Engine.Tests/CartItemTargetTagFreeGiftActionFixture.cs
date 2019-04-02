@@ -177,14 +177,8 @@ namespace Feature.Carts.Engine.Tests
             }
         }
 
-        public class Functional : CartItemTargetTagFreeGiftAction
+        public class Functional
         {
-            public Functional() : base(Substitute.For<IApplyFreeGiftDiscountCommand>(),
-                Substitute.For<IApplyFreeGiftEligibilityCommand>(),
-                Substitute.For<IApplyFreeGiftAutoRemoveCommand>())
-            {
-            }
-
             [Theory, InlineAutoNSubstituteData("freegift")]
             public void Execute_HasMatchingLines_ShouldApplyCartLineAdjustment(
                 string targetTag,
@@ -198,7 +192,11 @@ namespace Feature.Carts.Engine.Tests
                 /**********************************************
                  * Arrange
                  **********************************************/
-                var action = this;
+                ApplyFreeGiftDiscountCommand discountCommand;
+                ApplyFreeGiftEligibilityCommand eligibilityCommand;
+                ApplyFreeGiftAutoRemoveCommand autoRemoveCommand;
+                CartItemTargetTagFreeGiftAction action = BuildAction(out discountCommand, out eligibilityCommand, out autoRemoveCommand);
+
 
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
@@ -226,8 +224,8 @@ namespace Feature.Carts.Engine.Tests
                  * Assert
                  **********************************************/
                 executeAction.Should().NotThrow<Exception>();
-                ApplyFreeGiftEligibilityCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<string>());
-                ApplyFreeGiftDiscountCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
+                eligibilityCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<string>());
+                discountCommand.Received().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
             }
 
             [Theory, InlineAutoNSubstituteData("freegift")]
@@ -241,7 +239,11 @@ namespace Feature.Carts.Engine.Tests
                 /**********************************************
                  * Arrange
                  **********************************************/
-                var action = this;
+                ApplyFreeGiftDiscountCommand discountCommand;
+                ApplyFreeGiftEligibilityCommand eligibilityCommand;
+                ApplyFreeGiftAutoRemoveCommand autoRemoveCommand;
+                CartItemTargetTagFreeGiftAction action = BuildAction(out discountCommand, out eligibilityCommand, out autoRemoveCommand);
+
 
                 commerceContext.AddObject(cartTotals);
                 commerceContext.AddObject(cart);
@@ -263,8 +265,22 @@ namespace Feature.Carts.Engine.Tests
                  * Assert
                  **********************************************/
                 executeAction.Should().NotThrow<Exception>();
-                ApplyFreeGiftEligibilityCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<string>());
-                ApplyFreeGiftDiscountCommand.DidNotReceive().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
+                eligibilityCommand.Received().Process(Arg.Any<CommerceContext>(), cart, Arg.Any<string>());
+                discountCommand.DidNotReceive().Process(Arg.Any<CommerceContext>(), Arg.Any<CartLineComponent>(), Arg.Any<string>());
+            }
+
+            private static CartItemTargetTagFreeGiftAction BuildAction(out ApplyFreeGiftDiscountCommand discountCommand, out ApplyFreeGiftEligibilityCommand eligibilityCommand, out ApplyFreeGiftAutoRemoveCommand autoRemoveCommand)
+            {
+                discountCommand = Substitute.For<ApplyFreeGiftDiscountCommand>(Substitute.For<IServiceProvider>());
+                eligibilityCommand = Substitute.For<ApplyFreeGiftEligibilityCommand>(Substitute.For<IServiceProvider>());
+                autoRemoveCommand = Substitute.For<ApplyFreeGiftAutoRemoveCommand>();
+
+                var commerceCommander = Substitute.For<CommerceCommander>(Substitute.For<IServiceProvider>());
+                commerceCommander.Command<ApplyFreeGiftDiscountCommand>().Returns(discountCommand);
+                commerceCommander.Command<ApplyFreeGiftEligibilityCommand>().Returns(eligibilityCommand);
+                commerceCommander.Command<ApplyFreeGiftAutoRemoveCommand>().Returns(autoRemoveCommand);
+
+                return new CartItemTargetTagFreeGiftAction(commerceCommander);
             }
         }
     }
