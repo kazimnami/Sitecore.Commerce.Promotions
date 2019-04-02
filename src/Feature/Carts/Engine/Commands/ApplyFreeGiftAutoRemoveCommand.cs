@@ -11,7 +11,7 @@
         {
             using (CommandActivity.Start(commerceContext, this))
             {
-                if (!autoRemove || cartLineComponent.UnitListPrice.Amount > 0.0m)
+                if (!autoRemove && cartLineComponent.UnitListPrice.Amount != 0.0m)
                 {
                     return;
                 }
