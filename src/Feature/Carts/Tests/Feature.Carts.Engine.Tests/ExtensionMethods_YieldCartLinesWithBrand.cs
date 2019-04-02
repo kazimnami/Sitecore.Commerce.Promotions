@@ -119,7 +119,6 @@ namespace Feature.Carts.Engine.Tests
 
         [Theory, AutoNSubstituteData]
         public void YieldCartLines_05_NoTargetBrand(
-            CartItemTargetBrandSubtotalAmountOffAction action,
             Cart cart,
             CommerceContext commerceContext,
             IRuleExecutionContext context)

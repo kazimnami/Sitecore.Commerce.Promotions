@@ -20,20 +20,20 @@ namespace Feature.Carts.Engine
             _commander = commander;
         }
 
-        public override async Task<EntityView> Run(EntityView entityView, CommercePipelineExecutionContext context)
+        public override Task<EntityView> Run(EntityView entityView, CommercePipelineExecutionContext context)
         {
             Condition.Requires(entityView).IsNotNull($"{Name}: The argument cannot be null.");
 
             if (string.IsNullOrEmpty(entityView?.Action) || !entityView.Action.Equals(context.GetPolicy<KnownPromotionsActionsPolicy>().SelectBenefit, StringComparison.OrdinalIgnoreCase))
-                return entityView;
+                return Task.FromResult(entityView);
 
             Promotion promotion = context.CommerceContext.GetObjects<Promotion>().FirstOrDefault(p => p.Id.Equals(entityView.EntityId, StringComparison.OrdinalIgnoreCase));
             if (promotion == null)
-                return entityView;
+                return Task.FromResult(entityView);
 
             ViewProperty viewProperty = entityView.Properties.FirstOrDefault(p => p.Name.Equals("Action", StringComparison.OrdinalIgnoreCase));
             if (viewProperty == null)
-                return entityView;
+                return Task.FromResult(entityView);
 
             if (!(viewProperty.Value.Equals(nameof(CartItemTargetBrandSubtotalAmountOffAction))
                 || viewProperty.Value.Equals(nameof(CartItemTargetBrandSubtotalPercentOffAction))
@@ -42,7 +42,7 @@ namespace Feature.Carts.Engine
                 || viewProperty.Value.Equals(nameof(CartItemTargetTagSubtotalAmountOffAction))
                 || viewProperty.Value.Equals(nameof(CartItemTargetTagSubtotalPercentOffAction))))
             {
-                return entityView;
+                return Task.FromResult(entityView);
             }
 
             var propertiesFromBaseClass = (new List<ViewProperty>()
@@ -56,12 +56,12 @@ namespace Feature.Carts.Engine
             // Of the two base classes that exist ($Off, %Off) we have 3 feilds that need to be moved
 
             if (!propertiesFromBaseClass.Count.Equals(3))
-                return entityView;
+                return Task.FromResult(entityView);
 
             entityView.Properties = entityView.Properties.Except(propertiesFromBaseClass).ToList();
             entityView.Properties.AddRange(propertiesFromBaseClass);
 
-            return entityView;
+            return Task.FromResult(entityView);
         }
     }
 }

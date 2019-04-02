@@ -93,7 +93,6 @@ namespace Feature.Carts.Engine.Tests
             [Theory, AutoNSubstituteData]
             public void Execute_03_NoCartLines(
                 CartAnyItemQuantityXSellPriceAction action,
-                IRuleValue<string> targetItemId,
                 IRuleValue<int> quantityX,
                 IRuleValue<decimal> sellPrice,
                 IRuleValue<int> maximumApplications,
