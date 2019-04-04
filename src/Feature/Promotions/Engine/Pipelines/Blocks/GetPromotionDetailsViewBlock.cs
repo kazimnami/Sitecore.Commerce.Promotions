@@ -65,8 +65,8 @@ namespace Feature.Promotions.Engine.Pipelines.Blocks
 				return Task.FromResult(entityView);
 			}
 
-			entityView.Properties.Where(p => p.Name == "ValidFrom").ForEach(prop => { prop.IsHidden = true; });
-			entityView.Properties.Where(p => p.Name == "IsExclusive").ForEach(prop => { prop.IsReadOnly = true; });
+			entityView.GetProperty("ValidFrom").IsHidden = true;
+			entityView.GetProperty("IsExclusive").IsReadOnly = true;
 
 			return Task.FromResult(entityView);
 		}
