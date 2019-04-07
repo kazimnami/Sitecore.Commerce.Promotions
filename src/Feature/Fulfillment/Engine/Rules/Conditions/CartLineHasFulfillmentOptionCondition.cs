@@ -33,6 +33,11 @@ namespace Feature.Fulfillment.Engine.Rules.Conditions
 
             var methods = Task.Run(() => Commander.Command<GetFulfillmentMethodsCommand>().Process(commerceContext)).Result
                 .Where(o => o.FulfillmentType.Equals(optionName, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!methods.Any())
+            {
+                return false;
+            }
+
             var lineHasMethod = false;
             foreach (var cartLineComponent in cart.Lines.Where(l => l.HasComponent<FulfillmentComponent>()))
             {
