@@ -26,7 +26,7 @@ namespace Feature.Fulfillment.Engine.Rules.Conditions
             var cart = commerceContext?.GetObject<Cart>();
 
             var optionName = FulfillmentOptionName.Yield(context);
-            if (cart == null || !cart.Lines.Any() || (!cart.HasComponent<SplitFulfillmentComponent>() || string.IsNullOrEmpty(optionName)))
+            if (cart == null || !cart.Lines.Any() || !cart.HasComponent<SplitFulfillmentComponent>() || string.IsNullOrEmpty(optionName))
             {
                 return false;
             }

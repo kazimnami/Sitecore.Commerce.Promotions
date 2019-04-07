@@ -187,8 +187,25 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                             }
                         }),
                     context);
-            
-            promotion = await Commander.Pipeline<AddPublicCouponPipeline>().Run(new AddPublicCouponArgument(promotion, "SHIPPINGDISCOUNT"), context);
+
+			promotion =
+				await Commander.Pipeline<AddBenefitPipeline>().Run(
+					new PromotionActionModelArgument(
+						promotion,
+						new ActionModel
+						{
+							Id = Guid.NewGuid().ToString(),
+							LibraryId = "CartLineShippingOptionAmountOffAction",
+							Name = "CartLineShippingOptionAmountOffAction",
+							Properties = new List<PropertyModel>
+							{
+								this.AddProperty("FulfillmentOptionName", "ShipToMe", "System.String"),
+								this.AddProperty("AmountOff", "5", Constants.DisplayType.Decimal)
+							}
+						}),
+					context);
+
+			promotion = await Commander.Pipeline<AddPublicCouponPipeline>().Run(new AddPublicCouponArgument(promotion, "SHIPPINGDISCOUNT"), context);
             promotion.SetComponent(new ApprovalComponent(context.GetPolicy<ApprovalStatusPolicy>().Approved));
             await Commander.Pipeline<PersistEntityPipeline>().Run(new PersistEntityArgument(promotion), context);
         }

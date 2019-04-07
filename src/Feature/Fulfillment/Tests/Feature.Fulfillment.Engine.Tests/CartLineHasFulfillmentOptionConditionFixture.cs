@@ -260,8 +260,12 @@ namespace Feature.Fulfillment.Engine.Tests
 				/**********************************************
                  * Arrange
                  **********************************************/
-				splitFulfillmentComponent.FulfillmentMethod.EntityTarget = null;
+				fulfillmentComponent.FulfillmentMethod.EntityTarget = null;
 				cart.SetComponent(splitFulfillmentComponent);
+				while (cart.Lines.Count > 1)
+				{
+					cart.Lines.RemoveAt(0);
+				}
 				cart.Lines[0].SetComponent(fulfillmentComponent);
 
 				context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
@@ -311,6 +315,10 @@ namespace Feature.Fulfillment.Engine.Tests
                  **********************************************/
 				fulfillmentComponent.FulfillmentMethod.Name = null;
 				cart.SetComponent(splitFulfillmentComponent);
+				while (cart.Lines.Count > 1)
+				{
+					cart.Lines.RemoveAt(0);
+				}
 				cart.Lines[0].SetComponent(fulfillmentComponent);
 
 				context.Fact<CommerceContext>().ReturnsForAnyArgs(commerceContext);
