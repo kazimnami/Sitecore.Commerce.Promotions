@@ -770,7 +770,7 @@
 					"response": []
 				},
 				{
-					"name": "Add Coupon To Cart SHIPPINGDISCOUNT",
+					"name": "Add Coupon To Cart SHIPPINGLINEDISCOUNT",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -813,7 +813,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cartId\":\"Cart02\",\n    \"couponCode\": \"SHIPPINGDISCOUNT\"\n}\n"
+							"raw": "{\n    \"cartId\":\"Cart02\",\n    \"couponCode\": \"SHIPPINGLINEDISCOUNT\"\n}\n"
 						},
 						"url": {
 							"raw": "{{ServiceHost}}/{{ShopsApi}}/AddCouponToCart()",

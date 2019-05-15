@@ -77,6 +77,7 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
             }
 
             await this.CreateCartShippingOptionDiscountPromotion(book, context);
+            await this.CreateCartLineShippingOptionDiscountPromotion(book, context);
             await this.CreateCartLineQuantityRangePercentageOffPromotion(book, context);
             await this.CreateBuyXQuantityForYQuantityPricePromotion(book, context);
             await this.CreateBuyXQuantityForSellPricePromotion(book, context);
@@ -155,23 +156,6 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                     context);
 
             promotion =
-                await Commander.Pipeline<AddQualificationPipeline>().Run(
-                    new PromotionConditionModelArgument(
-                        promotion,
-                        new ConditionModel
-                        {
-                            ConditionOperator = "Or",
-                            Id = Guid.NewGuid().ToString(),
-                            LibraryId = "CartLineHasFulfillmentOptionCondition",
-                            Name = "CartLineHasFulfillmentOptionCondition",
-                            Properties = new List<PropertyModel>
-                            {
-                                this.AddProperty("FulfillmentOptionName", "ShipToMe", "System.String")
-                            }
-                        }),
-                    context);
-
-            promotion =
                 await Commander.Pipeline<AddBenefitPipeline>().Run(
                     new PromotionActionModelArgument(
                         promotion,
@@ -189,6 +173,72 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                     context);
             
             promotion = await Commander.Pipeline<AddPublicCouponPipeline>().Run(new AddPublicCouponArgument(promotion, "SHIPPINGDISCOUNT"), context);
+            promotion.SetComponent(new ApprovalComponent(context.GetPolicy<ApprovalStatusPolicy>().Approved));
+            await Commander.Pipeline<PersistEntityPipeline>().Run(new PersistEntityArgument(promotion), context);
+        }
+
+        /// <summary>
+        /// Creates the cart line shipping option discount promotion.
+        /// </summary>
+        /// <param name="book">The book.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>A <see cref="Task"/></returns>
+        private async Task CreateCartLineShippingOptionDiscountPromotion(PromotionBook book, CommercePipelineExecutionContext context)
+        {
+            /* #16 Shipping option specific discount */
+            var promotionId = "_Cart5OffLineDeliveryShippingOptionPromotion";
+            var entityId = $"{book.Name}-{promotionId}".ToEntityId<Promotion>();
+            var promotion = await Commander.GetEntity<Promotion>(context.CommerceContext, entityId);
+            if (promotion != null)
+            {
+                return;
+            }
+
+            var promotionName = "$5 Off Delivery Shipping (Cart Line)";
+            promotion =
+                await Commander.Pipeline<AddPromotionPipeline>().Run(
+                    new AddPromotionArgument(book, promotionId, DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1), promotionName, promotionName)
+                    {
+                        DisplayName = "$5 Off Delivery Shipping (Cart Line)",
+                        Description = "$5 Off Delivery Shipping Option on $200 or more (Cart Line)"
+                    },
+                    context);
+            
+            promotion =
+                await Commander.Pipeline<AddQualificationPipeline>().Run(
+                    new PromotionConditionModelArgument(
+                        promotion,
+                        new ConditionModel
+                        {
+                            ConditionOperator = "And",
+                            Id = Guid.NewGuid().ToString(),
+                            LibraryId = "CartLineHasFulfillmentOptionCondition",
+                            Name = "CartLineHasFulfillmentOptionCondition",
+                            Properties = new List<PropertyModel>
+                            {
+                                this.AddProperty("FulfillmentOptionName", "ShipToMe", "System.String")
+                            }
+                        }),
+                    context);
+            
+            promotion =
+                await Commander.Pipeline<AddBenefitPipeline>().Run(
+                    new PromotionActionModelArgument(
+                        promotion,
+                        new ActionModel
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            LibraryId = "CartLineShippingOptionAmountOffAction",
+                            Name = "CartLineShippingOptionAmountOffAction",
+                            Properties = new List<PropertyModel>
+                            {
+                                this.AddProperty("FulfillmentOptionName", "ShipToMe", "System.String"),
+                                this.AddProperty("AmountOff", "5", Constants.DisplayType.Decimal)
+                            }
+                        }),
+                    context);
+
+            promotion = await Commander.Pipeline<AddPublicCouponPipeline>().Run(new AddPublicCouponArgument(promotion, "SHIPPINGLINEDISCOUNT"), context);
             promotion.SetComponent(new ApprovalComponent(context.GetPolicy<ApprovalStatusPolicy>().Approved));
             await Commander.Pipeline<PersistEntityPipeline>().Run(new PersistEntityArgument(promotion), context);
         }
@@ -718,17 +768,17 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
             await Commander.Pipeline<PersistEntityPipeline>().Run(new PersistEntityArgument(promotion), context);
         }
 
-		/// <summary>
-		/// Creates $ discount on Kickbuds brand promotion.
-		/// </summary>
-		/// <param name="book">The book.</param>
-		/// <param name="context">The context.</param>
-		/// <returns>A <see cref="Task"/></returns>
-		private async Task CreateAmountOffKickbudsBrandPromotion(PromotionBook book, CommercePipelineExecutionContext context)
+        /// <summary>
+        /// Creates $ discount on Kickbuds brand promotion.
+        /// </summary>
+        /// <param name="book">The book.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>A <see cref="Task"/></returns>
+        private async Task CreateAmountOffKickbudsBrandPromotion(PromotionBook book, CommercePipelineExecutionContext context)
         {
-			/* #9 $ off Brand */
-			/* Brand: Kickbuds */
-			var promotionId = "_LineBrandAmountDiscountPromotion";
+            /* #9 $ off Brand */
+            /* Brand: Kickbuds */
+            var promotionId = "_LineBrandAmountDiscountPromotion";
             var promotion = await Commander.GetEntity<Promotion>(context.CommerceContext, $"Entity-Promotion-{book.Name}-{promotionId}");
             if (promotion != null)
             {
@@ -786,17 +836,17 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
             await Commander.Pipeline<PersistEntityPipeline>().Run(new PersistEntityArgument(promotion), context);
         }
 
-		/// <summary>
-		/// Creates % discount on Kickbuds brand promotion.
-		/// </summary>
-		/// <param name="book">The book.</param>
-		/// <param name="context">The context.</param>
-		/// <returns>A <see cref="Task"/></returns>
-		private async Task CreatePercentOffKickbudsBrandPromotion(PromotionBook book, CommercePipelineExecutionContext context)
+        /// <summary>
+        /// Creates % discount on Kickbuds brand promotion.
+        /// </summary>
+        /// <param name="book">The book.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>A <see cref="Task"/></returns>
+        private async Task CreatePercentOffKickbudsBrandPromotion(PromotionBook book, CommercePipelineExecutionContext context)
         {
-			/* #8 % off brand */
-			/* Brand: Kickbuds */
-			var promotionId = "_LineBrandPercentDiscountPromotion";
+            /* #8 % off brand */
+            /* Brand: Kickbuds */
+            var promotionId = "_LineBrandPercentDiscountPromotion";
             var promotion = await Commander.GetEntity<Promotion>(context.CommerceContext, $"Entity-Promotion-{book.Name}-{promotionId}");
             if (promotion != null)
             {

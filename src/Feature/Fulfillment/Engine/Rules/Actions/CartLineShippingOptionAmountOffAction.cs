@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CartLineShippingOptionAmountAction.cs" company="Sitecore Corporation">
+// <copyright file="CartLineShippingOptionAmountOffAction.cs" company="Sitecore Corporation">
 //   Copyright (c) Sitecore Corporation 1999-2019
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -20,12 +20,12 @@ namespace Feature.Fulfillment.Engine.Rules.Actions
     /// <summary>
     /// Applies a discount to cart line fulfillments of the specified type
     /// </summary>
-    [EntityIdentifier(nameof(CartLineShippingOptionAmountAction))]
-    public class CartLineShippingOptionAmountAction : ICartLineAction
+    [EntityIdentifier(nameof(CartLineShippingOptionAmountOffAction))]
+    public class CartLineShippingOptionAmountOffAction : ICartLineAction
     {
         protected CommerceCommander Commander { get; set; }
 
-        public CartLineShippingOptionAmountAction(CommerceCommander commander)
+        public CartLineShippingOptionAmountOffAction(CommerceCommander commander)
         {
             this.Commander = commander;
         }
@@ -45,7 +45,7 @@ namespace Feature.Fulfillment.Engine.Rules.Actions
             var commerceContext = context.Fact<CommerceContext>();
             var cart = commerceContext?.GetObject<Cart>();
             var totals = commerceContext?.GetObject<CartTotals>();
-            if (cart == null || !cart.Lines.Any() || totals == null || !totals.Lines.Any())
+            if (cart == null || !cart.Lines.Any() || !cart.HasComponent<SplitFulfillmentComponent>() || totals == null || !totals.Lines.Any())
             {
                 return;
             }
@@ -133,12 +133,12 @@ namespace Feature.Fulfillment.Engine.Rules.Actions
                     Adjustment = new Money(commerceContext.CurrentCurrency(), discountValue),
                     AdjustmentType = discount,
                     IsTaxable = false,
-                    AwardingBlock = nameof(CartLineShippingOptionAmountAction)
+                    AwardingBlock = nameof(CartLineShippingOptionAmountOffAction)
                 });
                 totals.Lines[line.Id].SubTotal.Amount += discountValue;
                 line.GetComponent<MessagesComponent>().AddMessage(
                     commerceContext.GetPolicy<KnownMessageCodePolicy>().Promotions,
-                    $"PromotionApplied: {propertiesModel?.GetPropertyValue("PromotionId") ?? nameof(CartLineShippingOptionAmountAction)}");
+                    $"PromotionApplied: {propertiesModel?.GetPropertyValue("PromotionId") ?? nameof(CartLineShippingOptionAmountOffAction)}");
             });
         }
     }

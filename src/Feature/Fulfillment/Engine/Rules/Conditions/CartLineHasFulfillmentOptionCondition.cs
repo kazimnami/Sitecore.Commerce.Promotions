@@ -26,13 +26,18 @@ namespace Feature.Fulfillment.Engine.Rules.Conditions
             var cart = commerceContext?.GetObject<Cart>();
 
             var optionName = FulfillmentOptionName.Yield(context);
-            if (cart == null || !cart.Lines.Any() || (!cart.HasComponent<SplitFulfillmentComponent>() || string.IsNullOrEmpty(optionName)))
+            if (cart == null || !cart.Lines.Any() || !cart.HasComponent<SplitFulfillmentComponent>() || string.IsNullOrEmpty(optionName))
             {
                 return false;
             }
 
             var methods = Task.Run(() => Commander.Command<GetFulfillmentMethodsCommand>().Process(commerceContext)).Result
                 .Where(o => o.FulfillmentType.Equals(optionName, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!methods.Any())
+            {
+                return false;
+            }
+
             var lineHasMethod = false;
             foreach (var cartLineComponent in cart.Lines.Where(l => l.HasComponent<FulfillmentComponent>()))
             {

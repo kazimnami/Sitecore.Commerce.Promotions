@@ -63,8 +63,9 @@ namespace Feature.Fulfillment.Engine.Rules.Actions
                 return;
             }
 
-            var fulfillment = cart.GetComponent<FulfillmentComponent>();
-            if (string.IsNullOrEmpty(fulfillment.FulfillmentMethod?.EntityTarget) || string.IsNullOrEmpty(fulfillment.FulfillmentMethod?.Name))
+            var fulfillment = cart.HasComponent<FulfillmentComponent>() ? cart.GetComponent<FulfillmentComponent>() : null;
+            var fulfillmentMethod = fulfillment?.FulfillmentMethod;
+            if (fulfillmentMethod == null || string.IsNullOrEmpty(fulfillmentMethod.EntityTarget) || string.IsNullOrEmpty(fulfillmentMethod.Name))
             {
                 return;
             }
