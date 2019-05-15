@@ -28,8 +28,19 @@ namespace Feature.Promotions.Engine
                     .Replace<DoActionAddQualificationBlock, Pipelines.Blocks.DoActionAddQualificationBlock>()
                     .Replace<DoActionAddBenefitBlock, Pipelines.Blocks.DoActionAddBenefitBlock>()
                 )
-                
-            );
+				
+				.ConfigurePipeline<IPopulateEntityViewActionsPipeline>(builder => builder
+					.Add<Pipelines.Blocks.PopulatePromotionViewActionsBlock>().After<PopulatePromotionViewActionsBlock>()
+				)
+
+				.ConfigurePipeline<IGetEntityViewPipeline>(builder => builder
+					.Add<Pipelines.Blocks.GetPromotionDetailsViewBlock>().After<GetPromotionDetailsViewBlock>()
+				)
+
+				.ConfigurePipeline<IEditPromotionPipeline>(builder => builder
+					.Replace<EditPromotionBlock, Pipelines.Blocks.EditPromotionBlock>()
+				)
+			);
         }
     }
 }
