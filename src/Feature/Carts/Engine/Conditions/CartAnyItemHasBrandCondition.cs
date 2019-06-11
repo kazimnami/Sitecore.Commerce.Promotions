@@ -4,7 +4,7 @@ using Sitecore.Framework.Rules;
 using System;
 using System.Linq;
 
-namespace Feature.Carts.Engine.Conditions
+namespace SamplePromotions.Feature.Carts.Engine.Conditions
 {
     [EntityIdentifier(CartsConstants.Conditions.CartAnyItemHasBrandCondition)]
     public class CartAnyItemHasBrandCondition : ICartsCondition, ICondition, IMappableRuleEntity

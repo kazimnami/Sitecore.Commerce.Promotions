@@ -4,7 +4,7 @@ using Sitecore.Framework.Configuration;
 using Sitecore.Framework.Rules;
 using System.Reflection;
 
-namespace Foundation.Carts.Engine
+namespace SamplePromotions.Foundation.Carts.Engine
 {
     public class ConfigureSitecore : IConfigureSitecore
     {

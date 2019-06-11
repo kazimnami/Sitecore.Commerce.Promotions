@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Project.SamplePromotions.Engine.Commands
+namespace SamplePromotions.Project.SamplePromotions.Engine.Commands
 {
     using Project.SamplePromotions.Engine.Pipelines;
     using Sitecore.Commerce.Core;
@@ -60,7 +60,7 @@ namespace Project.SamplePromotions.Engine.Commands
                 await PerformTransaction(commerceContext, async () =>
                 {
                     /* Replace logic here */
-                    result = await Commander.Pipeline<IInitialisePromotionsPipeline>().Run("override", commerceContext.GetPipelineContextOptions());
+                    result = await Commander.Pipeline<IInitialisePromotionsPipeline>().Run("override", commerceContext.PipelineContextOptions);
                 });
             }
 

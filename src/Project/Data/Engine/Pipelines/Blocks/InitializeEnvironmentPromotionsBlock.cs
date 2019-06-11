@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Project.SamplePromotions.Engine.Pipelines.Blocks
+namespace SamplePromotions.Project.SamplePromotions.Engine.Pipelines.Blocks
 {
     using System;
     using System.Collections.Generic;
@@ -128,8 +128,8 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         {
                             ConditionOperator = "And",
                             Id = Guid.NewGuid().ToString(),
-                            LibraryId = CartsConstants.Conditions.CartSubtotalCondition,
-                            Name = CartsConstants.Conditions.CartSubtotalCondition,
+                            LibraryId = CartsConstants.CartSubtotalCondition,
+                            Name = CartsConstants.CartSubtotalCondition,
                             Properties = new List<PropertyModel>
                             {
                                 this.AddProperty("Operator", Constants.Operators.DecimalGreaterThanEqualToOperator, Constants.DisplayType.BinaryOperatorDec, true),
@@ -279,8 +279,8 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         {
                             ConditionOperator = "And",
                             Id = Guid.NewGuid().ToString(),
-                            LibraryId = CartsConstants.Conditions.CartItemQuantityRangeCondition,
-                            Name = CartsConstants.Conditions.CartItemQuantityRangeCondition,
+                            LibraryId = CartsConstants.CartItemQuantityRangeCondition,
+                            Name = CartsConstants.CartItemQuantityRangeCondition,
                             Properties = new List<PropertyModel>
                             {
                                 this.AddProperty("TargetItemId", "Habitat_Master|6042060|", Constants.DisplayType.String),
@@ -387,8 +387,8 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         {
                             ConditionOperator = "And",
                             Id = Guid.NewGuid().ToString(),
-                            LibraryId = CartsConstants.Conditions.CartItemQuantityCondition,
-                            Name = CartsConstants.Conditions.CartItemQuantityCondition,
+                            LibraryId = CartsConstants.CartItemQuantityCondition,
+                            Name = CartsConstants.CartItemQuantityCondition,
                             Properties = new List<PropertyModel>
                             {
                                 this.AddProperty("TargetItemId", "Habitat_Master|6042061|", Constants.DisplayType.String),
@@ -457,8 +457,8 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         {
                             ConditionOperator = "And",
                             Id = Guid.NewGuid().ToString(),
-                            LibraryId = CartsConstants.Conditions.CartItemQuantityCondition,
-                            Name = CartsConstants.Conditions.CartItemQuantityCondition,
+                            LibraryId = CartsConstants.CartItemQuantityCondition,
+                            Name = CartsConstants.CartItemQuantityCondition,
                             Properties = new List<PropertyModel>
                             {
                                 this.AddProperty("TargetItemId", "Habitat_Master|6042062|", Constants.DisplayType.String),
@@ -667,8 +667,8 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         {
                             ConditionOperator = "And",
                             Id = Guid.NewGuid().ToString(),
-                            LibraryId = CartsConstants.Conditions.CartAnyItemHasTagCondition,
-                            Name = CartsConstants.Conditions.CartAnyItemHasTagCondition,
+                            LibraryId = CartsConstants.CartAnyItemHasTagCondition,
+                            Name = CartsConstants.CartAnyItemHasTagCondition,
                             Properties = new List<PropertyModel>
                             {
                                 this.AddProperty("Tag", "earbuds", Constants.DisplayType.String)
@@ -735,8 +735,8 @@ namespace Project.SamplePromotions.Engine.Pipelines.Blocks
                         {
                             ConditionOperator = "And",
                             Id = Guid.NewGuid().ToString(),
-                            LibraryId = CartsConstants.Conditions.CartAnyItemHasTagCondition,
-                            Name = CartsConstants.Conditions.CartAnyItemHasTagCondition,
+                            LibraryId = CartsConstants.CartAnyItemHasTagCondition,
+                            Name = CartsConstants.CartAnyItemHasTagCondition,
                             Properties = new List<PropertyModel>
                             {
                                 this.AddProperty("Tag", "earbuds", Constants.DisplayType.String)

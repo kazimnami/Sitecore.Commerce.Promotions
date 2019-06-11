@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Feature.Promotions.Engine.Pipelines.Blocks
+namespace SamplePromotions.Feature.Promotions.Engine.Pipelines.Blocks
 {
 	using Sitecore.Commerce.Core;
 	using Sitecore.Commerce.EntityViews;

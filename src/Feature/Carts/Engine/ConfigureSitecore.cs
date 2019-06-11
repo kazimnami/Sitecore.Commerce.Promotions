@@ -7,9 +7,9 @@ using Sitecore.Framework.Configuration;
 using Sitecore.Framework.Pipelines.Definitions.Extensions;
 using Sitecore.Framework.Rules;
 using System.Reflection;
-using Feature.Carts.Engine.Commands;
+using SamplePromotions.Feature.Carts.Engine.Commands;
 
-namespace Feature.Carts.Engine
+namespace SamplePromotions.Feature.Carts.Engine
 {
     public class ConfigureSitecore : IConfigureSitecore
     {

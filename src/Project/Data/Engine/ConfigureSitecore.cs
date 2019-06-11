@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Project.SamplePromotions.Engine
+namespace SamplePromotions.Project.SamplePromotions.Engine
 {
     using System.Reflection;
     using Microsoft.Extensions.DependencyInjection;

@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Project.SamplePromotions.Engine.Controllers
+namespace SamplePromotions.Project.SamplePromotions.Engine.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using Project.SamplePromotions.Engine.Commands;

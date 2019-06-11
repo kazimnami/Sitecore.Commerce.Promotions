@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Feature.Carts.Engine.Actions
+namespace SamplePromotions.Feature.Carts.Engine.Actions
 {
     public class CartItemSellPriceAction : CartTargetItemId, ICartLineAction, ICartsAction, IAction, IMappableRuleEntity
     {

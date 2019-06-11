@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Feature.Catalog.Engine
+namespace SamplePromotions.Feature.Catalog.Engine
 {
     /// <summary>
     /// The Catalog Constants.

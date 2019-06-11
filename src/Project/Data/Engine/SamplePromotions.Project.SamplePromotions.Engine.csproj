@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Configurations>Debug;Release;Debug 9.1</Configurations>
+    <Configurations>Debug;Release;Debug 9.0.2</Configurations>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   
-  <PropertyGroup Condition=" '$(Configuration)'!='Debug 9.1' ">
+  <PropertyGroup Condition=" '$(Configuration)'=='Debug 9.0.2' ">
     <TargetFramework>net462</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(Configuration)'!='Debug 9.1' ">
+  <ItemGroup Condition=" '$(Configuration)'=='Debug 9.0.2' ">
     <PackageReference Include="Sitecore.Commerce.Core" Version="2.2.29" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Carts" Version="2.2.11" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Catalog" Version="2.2.46" />
@@ -17,11 +17,11 @@
     <PackageReference Include="Sitecore.Commerce.Plugin.Promotions" Version="2.2.3" />
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)'=='Debug 9.1' ">
+  <PropertyGroup Condition=" '$(Configuration)'!='Debug 9.0.2' ">
     <TargetFramework>net471</TargetFramework>
   </PropertyGroup>
   
-  <ItemGroup Condition=" '$(Configuration)'=='Debug 9.1' ">
+  <ItemGroup Condition=" '$(Configuration)'!='Debug 9.0.2' ">
     <PackageReference Include="Sitecore.Commerce.Core" Version="3.0.*" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Carts" Version="3.0.*" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Catalog" Version="3.0.*" />

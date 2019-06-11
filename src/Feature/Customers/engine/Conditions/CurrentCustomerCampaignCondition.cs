@@ -5,7 +5,7 @@ using Sitecore.Framework.Rules;
 using System;
 using System.Linq;
 
-namespace Feature.Customers.Engine
+namespace SamplePromotions.Feature.Customers.Engine
 {
     [EntityIdentifier(CustomersConstants.Conditions.CurrentCustomerCampaignConditionName)]
     public class CurrentCustomerCampaignCondition : ICustomerCondition, ICondition, IMappableRuleEntity

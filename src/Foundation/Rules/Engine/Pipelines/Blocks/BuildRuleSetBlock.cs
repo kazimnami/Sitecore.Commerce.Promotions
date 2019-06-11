@@ -1,6 +1,6 @@
 ﻿
 
-namespace Foundation.Rules.Engine.Pipelines.Blocks
+namespace SamplePromotions.Foundation.Rules.Engine.Pipelines.Blocks
 {
     using Microsoft.Extensions.DependencyInjection;
     using Sitecore.Commerce.Plugin.Rules;

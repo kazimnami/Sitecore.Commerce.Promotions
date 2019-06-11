@@ -4,11 +4,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using Feature.Carts.Engine.Components;
+using SamplePromotions.Feature.Carts.Engine.Components;
 using JetBrains.Annotations;
 using Sitecore.Commerce.Plugin.Carts;
 
-namespace Feature.Carts.Engine.Commands
+namespace SamplePromotions.Feature.Carts.Engine.Commands
 {
     using Sitecore.Commerce.Core;
     using Sitecore.Commerce.Core.Commands;

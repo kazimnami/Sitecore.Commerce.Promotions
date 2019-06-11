@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Feature.Fulfillment.Engine.Rules.Actions
+namespace SamplePromotions.Feature.Fulfillment.Engine.Rules.Actions
 {
     using Sitecore.Commerce.Core;
     using Sitecore.Commerce.Plugin.Carts;

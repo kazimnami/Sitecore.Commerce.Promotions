@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Feature.Customers.Engine
+namespace SamplePromotions.Feature.Customers.Engine
 {
     public class CartContactBehaviourComponent : Component
     {

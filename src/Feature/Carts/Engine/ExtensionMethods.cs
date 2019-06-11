@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Feature.Carts.Engine
+namespace SamplePromotions.Feature.Carts.Engine
 {
     public static class ExtensionMethods
     {

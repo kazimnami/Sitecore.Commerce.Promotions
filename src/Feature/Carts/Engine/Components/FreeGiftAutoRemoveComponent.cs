@@ -1,6 +1,6 @@
 ﻿using Sitecore.Commerce.Core;
 
-namespace Feature.Carts.Engine.Components
+namespace SamplePromotions.Feature.Carts.Engine.Components
 {
     public class FreeGiftAutoRemoveComponent : Component
     {

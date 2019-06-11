@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Feature.Coupons.Engine.Pipelines.Blocks
+namespace SamplePromotions.Feature.Coupons.Engine.Pipelines.Blocks
 {
     [PipelineDisplayName(CouponsConstants.Pipelines.Blocks.FilterPromotionsWithCouponsByExclusivity)]
     public class FilterPromotionsWithCouponsByExclusivityBlock : PipelineBlock<IEnumerable<Promotion>, IEnumerable<Promotion>, CommercePipelineExecutionContext>

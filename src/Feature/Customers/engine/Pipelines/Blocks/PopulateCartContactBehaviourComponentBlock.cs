@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Feature.Customers.Engine
+namespace SamplePromotions.Feature.Customers.Engine
 {
     [PipelineDisplayName(CustomersConstants.Pipelines.Blocks.PopulateCartContactBehaviourComponentBlockName)]
     public class PopulateCartContactBehaviourComponentBlock : PipelineBlock<Cart, Cart, CommercePipelineExecutionContext>

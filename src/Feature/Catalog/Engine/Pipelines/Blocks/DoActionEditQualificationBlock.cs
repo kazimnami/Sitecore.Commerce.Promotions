@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Feature.Catalog.Engine.Pipelines.Blocks
+namespace SamplePromotions.Feature.Catalog.Engine.Pipelines.Blocks
 {
     using Sitecore.Commerce.Core;
     using Sitecore.Commerce.Plugin.Promotions;

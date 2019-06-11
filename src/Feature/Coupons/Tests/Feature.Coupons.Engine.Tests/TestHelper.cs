@@ -1,4 +1,4 @@
-﻿namespace Feature.Coupons.Engine.Tests
+﻿namespace SamplePromotions.Feature.Coupons.Engine.Tests
 {
 	using Microsoft.ApplicationInsights;
 	using Microsoft.AspNetCore.Http;

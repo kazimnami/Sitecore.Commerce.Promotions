@@ -2,7 +2,7 @@
 using Xunit;
 using Xunit.Sdk;
 
-namespace Feature.Carts.Engine.Tests
+namespace SamplePromotions.Feature.Carts.Engine.Tests
 {
     using System.Collections.Generic;
 

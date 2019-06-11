@@ -1,9 +1,9 @@
-﻿using Foundation.Carts.Engine;
+﻿using SamplePromotions.Foundation.Carts.Engine;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Framework.Rules;
 using System.Collections.Generic;
 
-namespace Feature.Carts.Engine
+namespace SamplePromotions.Feature.Carts.Engine
 {
     [EntityIdentifier(CartsConstants.Actions.CartItemTargetBrandSubtotalAmountOffAction)]
     public class CartItemTargetBrandSubtotalAmountOffAction : BaseCartItemSubtotalAmountOffAction

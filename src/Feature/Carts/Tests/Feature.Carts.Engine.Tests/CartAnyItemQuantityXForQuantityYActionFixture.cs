@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Feature.Carts.Engine.Tests
+namespace SamplePromotions.Feature.Carts.Engine.Tests
 {
     public class CartAnyItemQuantityXForQuantityYActionFixture
     {

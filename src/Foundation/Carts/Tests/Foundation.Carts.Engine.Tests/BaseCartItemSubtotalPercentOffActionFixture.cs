@@ -11,7 +11,7 @@ using Xunit;
 
 //using Sitecore.Commerce.UnitTesting;
 
-namespace Foundation.Carts.Engine.Tests
+namespace SamplePromotions.Foundation.Carts.Engine.Tests
 {
     public class BaseCartItemSubtotalPercentOffActionFixture
     {

@@ -7,7 +7,7 @@
 //using System.Collections.Generic;
 //using Xunit;
 
-//namespace Feature.Promotions.Engine.Tests
+//namespace SamplePromotions.Feature.Promotions.Engine.Tests
 //{
 //    public class ExtensionMethods_YieldCartLinesWithItemsCollection
 //    {

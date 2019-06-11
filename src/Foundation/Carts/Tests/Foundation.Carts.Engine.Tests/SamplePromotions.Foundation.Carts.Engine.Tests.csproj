@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
-    <Configurations>Debug;Release;Debug 9.1</Configurations>
+    <Configurations>Debug;Release;Debug 9.0.2</Configurations>
     <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
 
@@ -20,26 +20,26 @@
     </PackageReference>
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)'!='Debug 9.1' ">
+  <PropertyGroup Condition=" '$(Configuration)'=='Debug 9.0.2' ">
     <TargetFramework>net462</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(Configuration)'!='Debug 9.1' ">
+  <ItemGroup Condition=" '$(Configuration)'=='Debug 9.0.2' ">
     <PackageReference Include="Sitecore.Commerce.Core" Version="2.2.29" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Carts" Version="2.2.11" />
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)'=='Debug 9.1' ">
+  <PropertyGroup Condition=" '$(Configuration)'!='Debug 9.0.2' ">
     <TargetFramework>net471</TargetFramework>
   </PropertyGroup>
   
-  <ItemGroup Condition=" '$(Configuration)'=='Debug 9.1' ">
+  <ItemGroup Condition=" '$(Configuration)'!='Debug 9.0.2' ">
     <PackageReference Include="Sitecore.Commerce.Core" Version="3.0.*" />
     <PackageReference Include="Sitecore.Commerce.Plugin.Carts" Version="3.0.*" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine\Foundation.Carts.Engine.csproj" />
+    <ProjectReference Include="..\..\Engine\SamplePromotions.Foundation.Carts.Engine.csproj" />
   </ItemGroup>
 
 </Project>

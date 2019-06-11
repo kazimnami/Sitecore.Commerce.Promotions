@@ -4,7 +4,7 @@ using Sitecore.Framework.Pipelines;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Feature.Carts.Engine
+namespace SamplePromotions.Feature.Carts.Engine
 {
     using Components;
     using Sitecore.Commerce.Plugin.Carts;

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Feature.Promotions.Engine
+namespace SamplePromotions.Feature.Promotions.Engine
 {
     [EntityIdentifier(PromotionsConstants.Conditions.ItemsCollectionCondition)]
     public class ItemsCollectionCondition : ICartsCondition, ICondition, IMappableRuleEntity

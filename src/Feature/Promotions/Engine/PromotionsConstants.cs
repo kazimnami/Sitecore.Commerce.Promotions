@@ -1,4 +1,4 @@
-﻿namespace Feature.Promotions.Engine
+﻿namespace SamplePromotions.Feature.Promotions.Engine
 {
     public static class PromotionsConstants
     {

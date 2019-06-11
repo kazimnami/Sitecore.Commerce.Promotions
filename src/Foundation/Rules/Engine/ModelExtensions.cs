@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Foundation.Rules.Engine
+namespace SamplePromotions.Foundation.Rules.Engine
 {
     public static class ModelExtensions
     {

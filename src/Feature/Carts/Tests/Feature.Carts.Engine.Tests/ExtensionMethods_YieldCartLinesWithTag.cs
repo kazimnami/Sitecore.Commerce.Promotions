@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Feature.Carts.Engine.Tests
+namespace SamplePromotions.Feature.Carts.Engine.Tests
 {
     public class ExtensionMethods_YieldCartLinesWithTag
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Feature.Fulfillment.Engine.Tests
+namespace SamplePromotions.Feature.Fulfillment.Engine.Tests
 {
     public static class BaseFixture
     {

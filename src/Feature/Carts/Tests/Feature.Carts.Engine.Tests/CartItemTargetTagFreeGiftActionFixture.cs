@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Feature.Carts.Engine.Actions;
-using Feature.Carts.Engine.Commands;
+using SamplePromotions.Feature.Carts.Engine.Actions;
+using SamplePromotions.Feature.Carts.Engine.Commands;
 using FluentAssertions;
 using NSubstitute;
 using Sitecore.Commerce.Core;
@@ -11,7 +11,7 @@ using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Framework.Rules;
 using Xunit;
 
-namespace Feature.Carts.Engine.Tests
+namespace SamplePromotions.Feature.Carts.Engine.Tests
 {
     public class CartItemTargetTagFreeGiftActionFixture
     {

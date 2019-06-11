@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Feature.Promotions.Engine.Tests
+namespace SamplePromotions.Feature.Promotions.Engine.Tests
 {
     internal class InlineAutoNSubstituteDataAttribute : CompositeDataAttribute
     {

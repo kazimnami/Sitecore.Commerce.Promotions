@@ -4,7 +4,7 @@ using Sitecore.Commerce.Engine;
 using System;
 using System.Linq;
 
-namespace Feature.Carts.Pipelines
+namespace SamplePromotions.Feature.Carts.Pipelines
 {
     public class LoadCart : Sitecore.Commerce.Engine.Connect.Pipelines.Carts.LoadCart
     {

@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Project.SamplePromotions.Engine.Pipelines
+namespace SamplePromotions.Project.SamplePromotions.Engine.Pipelines
 {
     using Microsoft.Extensions.Logging;
     using Sitecore.Commerce.Core;

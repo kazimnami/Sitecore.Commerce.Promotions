@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Foundation.Carts.Engine
+namespace SamplePromotions.Foundation.Carts.Engine
 {
     public abstract class BaseCartItemSubtotalAmountOffAction : ICartLineAction, ICartsAction, IAction, IMappableRuleEntity
     {

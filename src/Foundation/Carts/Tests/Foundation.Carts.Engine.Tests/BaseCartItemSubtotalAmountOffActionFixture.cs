@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Foundation.Carts.Engine.Tests
+namespace SamplePromotions.Foundation.Carts.Engine.Tests
 {
     public class BaseCartItemSubtotalAmountOffActionFixture
     {

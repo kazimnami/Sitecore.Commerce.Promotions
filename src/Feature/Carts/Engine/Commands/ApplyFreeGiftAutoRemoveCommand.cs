@@ -1,4 +1,4 @@
-﻿namespace Feature.Carts.Engine.Commands
+﻿namespace SamplePromotions.Feature.Carts.Engine.Commands
 {
     using Components;
     using Sitecore.Commerce.Core;

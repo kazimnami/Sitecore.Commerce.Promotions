@@ -1,4 +1,4 @@
-﻿namespace Feature.Carts.Engine.Tests
+﻿namespace SamplePromotions.Feature.Carts.Engine.Tests
 {
     using System;
     using System.Linq;

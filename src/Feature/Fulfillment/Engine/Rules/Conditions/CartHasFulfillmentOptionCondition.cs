@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Feature.Fulfillment.Engine.Rules.Conditions
+namespace SamplePromotions.Feature.Fulfillment.Engine.Rules.Conditions
 {
     [EntityIdentifier(nameof(CartHasFulfillmentOptionCondition))]
     public class CartHasFulfillmentOptionCondition : IFulfillmentCondition

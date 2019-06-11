@@ -4,7 +4,7 @@ using AutoFixture.Xunit2;
 using System.Diagnostics.CodeAnalysis;
 using Xunit.Sdk;
 
-namespace Foundation.Carts.Engine.Tests
+namespace SamplePromotions.Foundation.Carts.Engine.Tests
 {
     public class AutoNSubstituteDataAttribute : AutoDataAttribute
     {

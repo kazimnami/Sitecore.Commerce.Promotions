@@ -1,4 +1,4 @@
-﻿using Foundation.Carts.Engine;
+﻿using SamplePromotions.Foundation.Carts.Engine;
 using Sitecore.Commerce.Core;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Commerce.Plugin.Promotions;
@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Feature.Promotions.Engine
+namespace SamplePromotions.Feature.Promotions.Engine
 {
     [EntityIdentifier(PromotionsConstants.Actions.CartItemTargetItemsCollectionSubtotalPercentOffAction)]
     public class CartItemTargetItemsCollectionSubtotalPercentOffAction : BaseCartItemSubtotalPercentOffAction

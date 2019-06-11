@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Feature.Carts.Engine
+namespace SamplePromotions.Feature.Carts.Engine
 {
     [PipelineDisplayName(CartsConstants.Pipelines.Blocks.PopulateLineItemProductExtendedBlock)]
     public class PopulateLineItemProductExtendedBlock : PipelineBlock<CartLineComponent, CartLineComponent, CommercePipelineExecutionContext>

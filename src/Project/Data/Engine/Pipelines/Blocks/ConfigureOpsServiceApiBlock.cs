@@ -1,4 +1,4 @@
-﻿namespace Project.SamplePromotions.Engine.Pipelines.Blocks
+﻿namespace SamplePromotions.Project.SamplePromotions.Engine.Pipelines.Blocks
 {
     using Microsoft.AspNetCore.OData.Builder;
     using Sitecore.Commerce.Core;

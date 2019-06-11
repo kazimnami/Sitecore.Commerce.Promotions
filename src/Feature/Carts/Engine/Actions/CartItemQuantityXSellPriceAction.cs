@@ -5,7 +5,7 @@ using Sitecore.Framework.Rules;
 using System;
 using System.Linq;
 
-namespace Feature.Carts.Engine
+namespace SamplePromotions.Feature.Carts.Engine
 {
     [EntityIdentifier(nameof(CartItemQuantityXSellPriceAction))]
     public class CartItemQuantityXSellPriceAction : CartTargetItemId, ICartLineAction

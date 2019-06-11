@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Commerce.Plugin.Pricing;
 
-namespace Feature.Carts.Engine.Commands
+namespace SamplePromotions.Feature.Carts.Engine.Commands
 {
     using Sitecore.Commerce.Core;
     using Sitecore.Commerce.Core.Commands;

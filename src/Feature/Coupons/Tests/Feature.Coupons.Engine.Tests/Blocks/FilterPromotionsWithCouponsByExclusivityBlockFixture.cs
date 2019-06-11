@@ -1,4 +1,4 @@
-﻿namespace Feature.Coupons.Engine.Tests.Blocks
+﻿namespace SamplePromotions.Feature.Coupons.Engine.Tests.Blocks
 {
 	using FluentAssertions;
 	using Sitecore.Commerce.Core;

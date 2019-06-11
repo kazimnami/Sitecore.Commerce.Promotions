@@ -1,4 +1,4 @@
-﻿namespace Feature.Customers.Engine
+﻿namespace SamplePromotions.Feature.Customers.Engine
 {
     public static class CustomersConstants
     {

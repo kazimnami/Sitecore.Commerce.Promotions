@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Feature.Promotions.Engine.Pipelines.Blocks
+namespace SamplePromotions.Feature.Promotions.Engine.Pipelines.Blocks
 {
     [PipelineDisplayName("Promotions.block.doactionaddqualification")]
     public class DoActionAddQualificationBlock : PipelineBlock<EntityView, EntityView, CommercePipelineExecutionContext>

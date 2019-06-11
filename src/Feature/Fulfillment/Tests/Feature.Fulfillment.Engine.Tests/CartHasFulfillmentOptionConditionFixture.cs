@@ -8,9 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using CartHasFulfillmentOptionCondition = Feature.Fulfillment.Engine.Rules.Conditions.CartHasFulfillmentOptionCondition;
+using CartHasFulfillmentOptionCondition = SamplePromotions.Feature.Fulfillment.Engine.Rules.Conditions.CartHasFulfillmentOptionCondition;
 
-namespace Feature.Fulfillment.Engine.Tests
+namespace SamplePromotions.Feature.Fulfillment.Engine.Tests
 {
     public class CartHasFulfillmentOptionConditionFixture
     {

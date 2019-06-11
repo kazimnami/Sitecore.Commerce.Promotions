@@ -1,7 +1,7 @@
 ﻿using Sitecore.Commerce.Core;
 using System.Collections.Generic;
 
-namespace Feature.Carts.Engine
+namespace SamplePromotions.Feature.Carts.Engine
 {
     public class LineItemProductExtendedComponent : Component
     {

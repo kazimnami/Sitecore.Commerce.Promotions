@@ -1,10 +1,10 @@
-﻿using Feature.Carts.Engine.Commands;
+﻿using SamplePromotions.Feature.Carts.Engine.Commands;
 using Sitecore.Commerce.Core;
 using Sitecore.Commerce.Plugin.Carts;
 using Sitecore.Framework.Rules;
 using System.Linq;
 
-namespace Feature.Carts.Engine.Actions
+namespace SamplePromotions.Feature.Carts.Engine.Actions
 {
     [EntityIdentifier(CartsConstants.Actions.CartItemTargetIdFreeGiftAction)]
     public class CartItemTargetIdFreeGiftAction : CartTargetItemId, ICartLineAction

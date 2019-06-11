@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Feature.Coupons.Engine.Tests
+namespace SamplePromotions.Feature.Coupons.Engine.Tests
 {
     public static class BaseFixture
     {

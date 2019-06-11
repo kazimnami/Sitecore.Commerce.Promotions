@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Feature.Carts.Engine
+namespace SamplePromotions.Feature.Carts.Engine
 {
     [PipelineDisplayName(CartsConstants.Pipelines.Blocks.DoActionSelectBenefitBlock)]
     public class DoActionSelectBenefitBlock : PipelineBlock<EntityView, EntityView, CommercePipelineExecutionContext>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Foundation.Carts.Engine.Tests
+namespace SamplePromotions.Foundation.Carts.Engine.Tests
 {
     public static class BaseFixture
     {

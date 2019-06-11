@@ -1,4 +1,4 @@
-﻿namespace Feature.Carts.Engine.Tests.Utilities
+﻿namespace SamplePromotions.Feature.Carts.Engine.Tests.Utilities
 {
     using System;
     using Microsoft.Extensions.Logging;

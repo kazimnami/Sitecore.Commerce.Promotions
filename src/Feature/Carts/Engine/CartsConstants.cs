@@ -1,4 +1,4 @@
-﻿namespace Feature.Carts.Engine
+﻿namespace SamplePromotions.Feature.Carts.Engine
 {
     public static class CartsConstants
     {

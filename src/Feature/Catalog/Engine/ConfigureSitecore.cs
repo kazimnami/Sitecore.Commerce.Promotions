@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Feature.Catalog.Engine
+namespace SamplePromotions.Feature.Catalog.Engine
 {
     using System.Reflection;
     using Microsoft.Extensions.DependencyInjection;

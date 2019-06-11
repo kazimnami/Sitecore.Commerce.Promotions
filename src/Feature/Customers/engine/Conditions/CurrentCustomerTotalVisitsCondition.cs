@@ -4,7 +4,7 @@ using Sitecore.Commerce.Plugin.Customers;
 using Sitecore.Framework.Rules;
 using System.Linq;
 
-namespace Feature.Customers.Engine
+namespace SamplePromotions.Feature.Customers.Engine
 {
     [EntityIdentifier(CustomersConstants.Conditions.CurrentCustomerTotalVisitsConditionName)]
     public class CurrentCustomerTotalVisitsCondition : ICustomerCondition, ICondition, IMappableRuleEntity

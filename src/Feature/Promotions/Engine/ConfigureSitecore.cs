@@ -7,7 +7,7 @@ using Sitecore.Framework.Pipelines.Definitions.Extensions;
 using Sitecore.Framework.Rules;
 using System.Reflection;
 
-namespace Feature.Promotions.Engine
+namespace SamplePromotions.Feature.Promotions.Engine
 {
     public class ConfigureSitecore : IConfigureSitecore
     {

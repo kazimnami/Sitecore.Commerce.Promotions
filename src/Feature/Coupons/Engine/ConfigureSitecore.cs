@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Feature.Coupons.Engine
+namespace SamplePromotions.Feature.Coupons.Engine
 {
     using System.Reflection;
     using Microsoft.Extensions.DependencyInjection;

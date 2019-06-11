@@ -1,4 +1,4 @@
-﻿using Feature.Fulfillment.Engine.Rules.Actions;
+﻿using SamplePromotions.Feature.Fulfillment.Engine.Rules.Actions;
 using FluentAssertions;
 using NSubstitute;
 using Sitecore.Commerce.Core;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Feature.Fulfillment.Engine.Tests
+namespace SamplePromotions.Feature.Fulfillment.Engine.Tests
 {
 	public class CartLineShippingOptionAmountOffActionFixture
 	{
